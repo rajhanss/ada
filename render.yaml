@@ -32,6 +32,8 @@ services:
       # --- AI Providers (set whichever you use) ---
       - key: ADA_GOOGLE_API_KEY
         sync: false
+      - key: ADA_GEMINI_API_KEY
+        sync: false
       - key: ADA_GROQ_API_KEY
         sync: false
       - key: ADA_OPENROUTER_API_KEY
