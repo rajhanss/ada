@@ -46,9 +46,10 @@ ADA/
 │   │   ├── automation/ # UI Automation + Playwright
 │   │   └── sync/       # Cloud WebSocket sync
 │   └── tests/
-├── android/            # Android companion (Kotlin + Jetpack Compose)
-│   └── app/
-├── web/                # Web dashboard (React + TypeScript + Vite)
+├── mobile/             # Android mobile companion (React Native + Expo + TypeScript)
+│   └── src/
+├── web/                # Web dashboard & SaaS landing page (React + TypeScript + Vite)
+│   ├── public/downloads/ # Direct .exe and .apk store-free distribution packages
 │   └── src/
 ├── shared/             # OpenAPI contracts and generated types
 └── docs/               # Architecture and design documentation
@@ -60,6 +61,7 @@ ADA/
 
 | Document | Description |
 |---|---|
+| [DEPLOY_AND_RUN.md](DEPLOY_AND_RUN.md) | One-click execution, Render deployment & HeyClicky capabilities |
 | [PRODUCT_BLUEPRINT.md](PRODUCT_BLUEPRINT.md) | Technical source of truth |
 | [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | System architecture and diagrams |
 | [docs/DATABASE_SCHEMA.md](docs/DATABASE_SCHEMA.md) | Full PostgreSQL schema |
@@ -79,15 +81,14 @@ ADA/
 | System | Technology |
 |---|---|
 | Cloud hosting | Render |
-| Backend | Python 3.12 + FastAPI |
-| Agent orchestration | LangGraph |
+| Backend | Python 3.12 + FastAPI + LangGraph |
+| AI Providers | Groq (Qwen3.8-27b), Google Gemini (Gemini 3.8 Flash) |
+| Agentic Evals & Tracing | LangSmith (`LANGCHAIN_TRACING_V2`) + AgentObserver |
 | Database | Supabase PostgreSQL + pgvector |
-| Authentication | Supabase Auth |
-| Desktop UI | PySide6 |
-| Browser automation | Playwright |
-| Local models | Ollama |
-| Android | Kotlin + Jetpack Compose |
-| Web | React + TypeScript + Vite + Tailwind |
+| Authentication | Supabase Auth + JWT |
+| Desktop UI | PySide6 with Expressive Cybernetic Eyes & Low-Level Computer Use |
+| Mobile Companion | React Native + Expo + TypeScript (Store-Free Direct APK) |
+| Web Dashboard | React + TypeScript + Vite + Apple-grade Dynamic Island |
 | Python environment | uv |
 
 ---
