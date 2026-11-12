@@ -5,7 +5,7 @@ import type { Task } from '../../../shared/contracts/types';
 
 export const TasksPage: React.FC = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [, setLoading] = useState(true);
 
   useEffect(() => {
     api.listTasks()
@@ -47,20 +47,20 @@ export const TasksPage: React.FC = () => {
   const getStatusIcon = (status: string) => {
     switch (status) {
       case 'completed':
-        return <CheckCircle2 size={16} color="var(--status-success)" />;
+        return <CheckCircle2 size={16} color="var(--ada-status-success)" aria-label="Completed" />;
       case 'running':
-        return <Play size={16} color="var(--ada-saffron)" className="orb-pulse" />;
+        return <Play size={16} color="var(--ada-saffron)" aria-label="Running" />;
       case 'failed':
-        return <XCircle size={16} color="var(--status-danger)" />;
+        return <XCircle size={16} color="var(--ada-status-danger)" aria-label="Failed" />;
       default:
-        return <Clock size={16} color="var(--status-warning)" />;
+        return <Clock size={16} color="var(--ada-status-warning)" aria-label="Pending" />;
     }
   };
 
   return (
-    <div style={{ flex: 1, height: '100vh', overflowY: 'auto', padding: '32px', backgroundColor: 'var(--bg-app)' }}>
+    <div style={{ flex: 1, height: '100vh', overflowY: 'auto', padding: '32px', backgroundColor: 'var(--ada-bg-app)' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
-        <ListTodo size={24} color="var(--ada-saffron)" />
+        <ListTodo size={24} color="var(--ada-saffron)" aria-hidden="true" />
         <h2 style={{ fontSize: '20px', fontWeight: 700 }}>Autonomous Task Monitor</h2>
       </div>
 
@@ -69,9 +69,9 @@ export const TasksPage: React.FC = () => {
           <div
             key={t.id}
             style={{
-              backgroundColor: 'var(--bg-card)',
-              border: '1px solid var(--border-subtle)',
-              borderRadius: '10px',
+              backgroundColor: 'var(--ada-bg-card)',
+              border: '1px solid var(--ada-border-subtle)',
+              borderRadius: '8px',
               padding: '16px 20px',
               display: 'flex',
               alignItems: 'center',
@@ -84,8 +84,9 @@ export const TasksPage: React.FC = () => {
                 <span
                   style={{
                     fontSize: '11px',
-                    fontFamily: 'var(--font-mono)',
-                    backgroundColor: 'var(--bg-card-hover)',
+                    fontFamily: 'var(--ada-font-mono)',
+                    backgroundColor: 'var(--ada-bg-card-hover)',
+                    border: '1px solid var(--ada-border-subtle)',
                     padding: '2px 8px',
                     borderRadius: '4px',
                     color: 'var(--ada-saffron)',
@@ -94,7 +95,7 @@ export const TasksPage: React.FC = () => {
                   {t.tool_name}
                 </span>
               </div>
-              <p style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>{t.description}</p>
+              <p style={{ fontSize: '12px', color: 'var(--ada-text-secondary)' }}>{t.description}</p>
             </div>
 
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>

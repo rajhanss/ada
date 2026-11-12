@@ -17,7 +17,8 @@ from ada.models.domain import Device, DeviceRegister, DeviceRegistered, new_uuid
 router = APIRouter(tags=["devices"])
 
 
-@router.post("/", response_model=DeviceRegistered, status_code=201)
+@router.post("", response_model=DeviceRegistered, status_code=201)
+@router.post("/", response_model=DeviceRegistered, status_code=201, include_in_schema=False)
 async def register_device(
     body: DeviceRegister,
     user_id: str = Depends(get_current_user_id),
@@ -43,7 +44,8 @@ async def register_device(
     )
 
 
-@router.get("/", response_model=list[Device])
+@router.get("", response_model=list[Device])
+@router.get("/", response_model=list[Device], include_in_schema=False)
 async def list_devices(
     user_id: str = Depends(get_current_user_id),
 ) -> list[Device]:

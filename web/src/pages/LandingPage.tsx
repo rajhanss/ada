@@ -4,15 +4,12 @@ import {
   Laptop,
   Smartphone,
   Globe,
-  Sparkles,
   ShieldCheck,
-  Zap,
-  Eye,
-  CheckCircle2,
   Terminal,
   ArrowRight,
+  Cpu,
+  Layers,
 } from 'lucide-react';
-import { DynamicIsland } from '../components/DynamicIsland';
 
 interface LandingPageProps {
   onLaunchWebApp: () => void;
@@ -23,314 +20,277 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunchWebApp }) => {
     <div
       style={{
         minHeight: '100vh',
-        backgroundColor: '#070709',
-        color: '#F3F3F8',
-        fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif",
-        overflowX: 'hidden',
-        position: 'relative',
+        backgroundColor: 'var(--ada-bg-app)',
+        color: 'var(--ada-text-main)',
+        fontFamily: 'var(--ada-font-sans)',
+        overflowX: 'clip',
       }}
     >
-      {/* Live Interactive Dynamic Island Floating at the top */}
-      <DynamicIsland />
-
-      {/* Hero Section */}
-      <div
+      {/* Top Header */}
+      <header
         style={{
-          maxWidth: '1200px',
-          margin: '0 auto',
-          padding: '120px 24px 60px',
-          textAlign: 'center',
-          position: 'relative',
+          borderBottom: '1px solid var(--ada-border-subtle)',
+          backgroundColor: 'var(--ada-bg-sidebar)',
+          height: '64px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          padding: '0 32px',
         }}
       >
-        {/* Glow backdrop */}
-        <div
-          style={{
-            position: 'absolute',
-            top: '80px',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            width: '600px',
-            height: '350px',
-            background: 'radial-gradient(circle, rgba(232, 117, 24, 0.15) 0%, rgba(0,0,0,0) 70%)',
-            pointerEvents: 'none',
-            zIndex: 0,
-          }}
-        />
-
-        {/* Hero Tag */}
-        <div
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '8px',
-            backgroundColor: 'rgba(232, 117, 24, 0.12)',
-            border: '1px solid rgba(232, 117, 24, 0.3)',
-            borderRadius: '999px',
-            padding: '6px 16px',
-            fontSize: '12px',
-            fontWeight: 700,
-            color: 'var(--ada-saffron)',
-            marginBottom: '24px',
-            position: 'relative',
-            zIndex: 1,
-          }}
-        >
-          <Sparkles size={14} /> ONE INTELLIGENCE. EVERY DEVICE. INDEPENDENT ACTION.
-        </div>
-
-        {/* Hero Headline */}
-        <h1
-          style={{
-            fontSize: 'clamp(40px, 6vw, 68px)',
-            fontWeight: 800,
-            lineHeight: 1.1,
-            letterSpacing: '-0.03em',
-            marginBottom: '20px',
-            position: 'relative',
-            zIndex: 1,
-          }}
-        >
-          Your computer, controlled by <br />
-          <span
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <div
             style={{
-              background: 'linear-gradient(135deg, #FFF 30%, #E87518 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
+              width: '28px',
+              height: '28px',
+              borderRadius: '4px',
+              backgroundColor: 'var(--ada-saffron)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: 'var(--ada-text-main)',
+              fontWeight: 800,
+              fontSize: '14px',
+              fontFamily: 'var(--ada-font-mono)',
             }}
           >
-            Autonomous Digital Intelligence.
-          </span>
-        </h1>
+            A
+          </div>
+          <div>
+            <span style={{ fontSize: '15px', fontWeight: 700, letterSpacing: '0.01em' }}>
+              ADA
+            </span>
+            <span
+              style={{
+                fontSize: '11px',
+                color: 'var(--ada-text-dim)',
+                marginLeft: '8px',
+                fontFamily: 'var(--ada-font-mono)',
+              }}
+            >
+              v0.1
+            </span>
+          </div>
+        </div>
 
-        <p
-          style={{
-            fontSize: '18px',
-            color: '#9B9BAF',
-            maxWidth: '680px',
-            margin: '0 auto 40px',
-            lineHeight: 1.6,
-            position: 'relative',
-            zIndex: 1,
-          }}
+        <button
+          type="button"
+          onClick={onLaunchWebApp}
+          className="ada-btn-primary"
         >
-          ADA lives by your cursor, sees what you see, explores the web, executes commands on your workstation, and stays synchronized with your phone.
-        </p>
+          <span>Launch console</span>
+          <ArrowRight size={14} aria-hidden="true" />
+        </button>
+      </header>
 
-        {/* Primary Download & Web Action Cards */}
+      {/* Main Content Hero */}
+      <main style={{ maxWidth: '1120px', margin: '0 auto', padding: '80px 24px 100px' }}>
+        <div style={{ maxWidth: '820px', marginBottom: '56px' }}>
+          <h1
+            style={{
+              fontSize: 'clamp(36px, 5vw, 54px)',
+              fontWeight: 700,
+              lineHeight: 1.15,
+              letterSpacing: '-0.02em',
+              color: 'var(--ada-text-main)',
+              marginBottom: '18px',
+            }}
+          >
+            One intelligence across your workstation and phone.
+          </h1>
+
+          <p
+            style={{
+              fontSize: '17px',
+              color: 'var(--ada-text-secondary)',
+              lineHeight: 1.6,
+              maxWidth: '720px',
+            }}
+          >
+            ADA runs as a local daemon on your workstation, understands active display context, executes verified terminal actions, and coordinates authorization requests directly with your mobile device.
+          </p>
+        </div>
+
+        {/* Distribution Channels */}
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-            gap: '20px',
-            maxWidth: '960px',
-            margin: '0 auto 80px',
-            position: 'relative',
-            zIndex: 1,
+            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+            gap: '24px',
+            marginBottom: '64px',
           }}
         >
-          {/* Windows Download Card */}
-          <div
-            style={{
-              backgroundColor: '#121217',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
-              borderRadius: '20px',
-              padding: '32px 24px',
-              textAlign: 'left',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'space-between',
-              boxShadow: '0 20px 40px rgba(0,0,0,0.5)',
-              transition: 'transform 0.2s ease, border-color 0.2s ease',
-            }}
-          >
+          {/* Windows Desktop */}
+          <div className="ada-card" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
             <div>
               <div
                 style={{
-                  width: '44px',
-                  height: '44px',
-                  borderRadius: '12px',
-                  backgroundColor: 'rgba(232, 117, 24, 0.15)',
+                  width: '40px',
+                  height: '40px',
+                  borderRadius: '6px',
+                  backgroundColor: 'var(--ada-bg-sidebar)',
+                  border: '1px solid var(--ada-border-subtle)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   marginBottom: '16px',
+                  color: 'var(--ada-saffron)',
                 }}
               >
-                <Laptop size={22} color="var(--ada-saffron)" />
+                <Laptop size={20} aria-hidden="true" />
               </div>
-              <h3 style={{ fontSize: '18px', fontWeight: 700, marginBottom: '6px' }}>
-                Download for Windows
-              </h3>
-              <p style={{ fontSize: '13px', color: '#8E8E9F', marginBottom: '20px', lineHeight: 1.5 }}>
-                Full workstation control: screen understanding, PySide6 dynamic floating orb, mouse/keyboard automation, and local execution.
+
+              <h2 style={{ fontSize: '18px', fontWeight: 600, marginBottom: '8px' }}>
+                Windows workstation runtime
+              </h2>
+
+              <p style={{ fontSize: '13px', color: 'var(--ada-text-secondary)', lineHeight: 1.6, marginBottom: '24px' }}>
+                Native desktop integration with PySide6 floating status orb, screen OCR understanding, background tool execution, and local Python daemon.
               </p>
             </div>
 
-            <a
-              href="/downloads/ada-desktop-setup.exe"
-              download="ada-desktop-setup.exe"
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '8px',
-                backgroundColor: 'var(--ada-saffron)',
-                color: '#FFF',
-                padding: '12px 20px',
-                borderRadius: '12px',
-                textDecoration: 'none',
-                fontWeight: 700,
-                fontSize: '14px',
-                boxShadow: '0 8px 24px rgba(232, 117, 24, 0.35)',
-              }}
-            >
-              <Download size={16} /> Download .EXE (Direct)
-            </a>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              <a
+                href="/downloads/ada-desktop-setup.exe"
+                download="ada-desktop-setup.exe"
+                className="ada-btn-primary"
+                style={{ width: '100%' }}
+              >
+                <Download size={15} aria-hidden="true" />
+                <span>Download .EXE installer</span>
+              </a>
+              <span style={{ fontSize: '11px', color: 'var(--ada-text-dim)', textAlign: 'center', fontFamily: 'var(--ada-font-mono)' }}>
+                Direct standalone binary (no store gatekeepers)
+              </span>
+            </div>
           </div>
 
-          {/* Android Download Card */}
-          <div
-            style={{
-              backgroundColor: '#121217',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
-              borderRadius: '20px',
-              padding: '32px 24px',
-              textAlign: 'left',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'space-between',
-              boxShadow: '0 20px 40px rgba(0,0,0,0.5)',
-            }}
-          >
+          {/* Android Companion */}
+          <div className="ada-card" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
             <div>
               <div
                 style={{
-                  width: '44px',
-                  height: '44px',
-                  borderRadius: '12px',
-                  backgroundColor: 'rgba(0, 195, 255, 0.15)',
+                  width: '40px',
+                  height: '40px',
+                  borderRadius: '6px',
+                  backgroundColor: 'var(--ada-bg-sidebar)',
+                  border: '1px solid var(--ada-border-subtle)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   marginBottom: '16px',
+                  color: 'var(--ada-status-success)',
                 }}
               >
-                <Smartphone size={22} color="#00C3FF" />
+                <Smartphone size={20} aria-hidden="true" />
               </div>
-              <h3 style={{ fontSize: '18px', fontWeight: 700, marginBottom: '6px' }}>
-                Download for Android
-              </h3>
-              <p style={{ fontSize: '13px', color: '#8E8E9F', marginBottom: '20px', lineHeight: 1.5 }}>
-                Direct APK sideload without Play Store gatekeepers. Push-to-talk voice commands, live laptop monitoring, and 1-tap push approvals.
+
+              <h2 style={{ fontSize: '18px', fontWeight: 600, marginBottom: '8px' }}>
+                Android companion client
+              </h2>
+
+              <p style={{ fontSize: '13px', color: 'var(--ada-text-secondary)', lineHeight: 1.6, marginBottom: '24px' }}>
+                Push-to-talk voice input, live status monitoring of connected workstations, and one-tap cryptographic permission authorizations.
               </p>
             </div>
 
-            <a
-              href="/downloads/ada-mobile.apk"
-              download="ada-mobile.apk"
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '8px',
-                backgroundColor: '#1E1E28',
-                color: '#FFF',
-                border: '1px solid rgba(255, 255, 255, 0.15)',
-                padding: '12px 20px',
-                borderRadius: '12px',
-                textDecoration: 'none',
-                fontWeight: 700,
-                fontSize: '14px',
-              }}
-            >
-              <Download size={16} /> Download .APK (Direct)
-            </a>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              <a
+                href="/downloads/ada-mobile.apk"
+                download="ada-mobile.apk"
+                className="ada-btn-secondary"
+                style={{ width: '100%' }}
+              >
+                <Download size={15} aria-hidden="true" />
+                <span>Download .APK package</span>
+              </a>
+              <span style={{ fontSize: '11px', color: 'var(--ada-text-dim)', textAlign: 'center', fontFamily: 'var(--ada-font-mono)' }}>
+                Direct sideload package
+              </span>
+            </div>
           </div>
 
-          {/* Web App Card */}
-          <div
-            style={{
-              backgroundColor: '#121217',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
-              borderRadius: '20px',
-              padding: '32px 24px',
-              textAlign: 'left',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'space-between',
-              boxShadow: '0 20px 40px rgba(0,0,0,0.5)',
-            }}
-          >
+          {/* Cloud Web Console */}
+          <div className="ada-card" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
             <div>
               <div
                 style={{
-                  width: '44px',
-                  height: '44px',
-                  borderRadius: '12px',
-                  backgroundColor: 'rgba(16, 185, 129, 0.15)',
+                  width: '40px',
+                  height: '40px',
+                  borderRadius: '6px',
+                  backgroundColor: 'var(--ada-bg-sidebar)',
+                  border: '1px solid var(--ada-border-subtle)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   marginBottom: '16px',
+                  color: 'var(--ada-text-main)',
                 }}
               >
-                <Globe size={22} color="#10B981" />
+                <Globe size={20} aria-hidden="true" />
               </div>
-              <h3 style={{ fontSize: '18px', fontWeight: 700, marginBottom: '6px' }}>
-                Cloud Web Dashboard
-              </h3>
-              <p style={{ fontSize: '13px', color: '#8E8E9F', marginBottom: '20px', lineHeight: 1.5 }}>
-                No installation needed. Manage connected devices, orchestrate tasks, inspect persistent memory, and chat directly from any browser.
+
+              <h2 style={{ fontSize: '18px', fontWeight: 600, marginBottom: '8px' }}>
+                Browser control console
+              </h2>
+
+              <p style={{ fontSize: '13px', color: 'var(--ada-text-secondary)', lineHeight: 1.6, marginBottom: '24px' }}>
+                Full administrative interface from any browser: inspect active devices, orchestrate tasks, view audit logs, and communicate directly with the agent core.
               </p>
             </div>
 
-            <button
-              onClick={onLaunchWebApp}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '8px',
-                backgroundColor: '#10B981',
-                color: '#FFF',
-                border: 'none',
-                padding: '12px 20px',
-                borderRadius: '12px',
-                cursor: 'pointer',
-                fontWeight: 700,
-                fontSize: '14px',
-                boxShadow: '0 8px 24px rgba(16, 185, 129, 0.35)',
-              }}
-            >
-              Launch Web App <ArrowRight size={16} />
-            </button>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              <button
+                type="button"
+                onClick={onLaunchWebApp}
+                className="ada-btn-secondary"
+                style={{ width: '100%' }}
+              >
+                <span>Launch console</span>
+                <ArrowRight size={15} aria-hidden="true" />
+              </button>
+              <span style={{ fontSize: '11px', color: 'var(--ada-text-dim)', textAlign: 'center', fontFamily: 'var(--ada-font-mono)' }}>
+                Zero installation required
+              </span>
+            </div>
           </div>
         </div>
 
-        {/* Store-Free Distribution Architectural Callout */}
+        {/* Architectural Principles */}
         <div
           style={{
-            maxWidth: '960px',
-            margin: '0 auto',
-            backgroundColor: 'rgba(18, 18, 24, 0.8)',
-            border: '1px solid rgba(255, 255, 255, 0.08)',
-            borderRadius: '16px',
-            padding: '28px 32px',
-            textAlign: 'left',
+            backgroundColor: 'var(--ada-bg-sidebar)',
+            border: '1px solid var(--ada-border-subtle)',
+            borderRadius: '8px',
+            padding: '32px',
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '12px' }}>
-            <ShieldCheck size={20} color="var(--ada-saffron)" />
-            <h4 style={{ fontSize: '16px', fontWeight: 700 }}>
-              Why Standalone Distribution Without App Stores?
-            </h4>
+            <ShieldCheck size={20} color="var(--ada-saffron)" aria-hidden="true" />
+            <h3 style={{ fontSize: '16px', fontWeight: 600 }}>
+              Autonomous execution and security architecture
+            </h3>
           </div>
-          <p style={{ fontSize: '13.5px', color: '#9B9BAF', lineHeight: 1.6 }}>
-            True autonomous computer use requires permissions that closed app stores prohibit: direct screen reading, global keyboard hotkeys, background dev tool execution, and local shell control. By distributing direct signed <strong>.EXE</strong> packages on Windows and sideloadable <strong>.APK</strong> bundles on Android, ADA operates with full native performance and zero app store surveillance or restrictions.
+          <p style={{ fontSize: '13.5px', color: 'var(--ada-text-secondary)', lineHeight: 1.65 }}>
+            Operating-system level computer use requires capabilities that sandboxed web containers cannot provide: active display inspection, hotkey handling, and local process management. By combining direct desktop packages with hardware-bound authorization gates, ADA executes commands while keeping you in full supervisory control.
           </p>
         </div>
-      </div>
+      </main>
+
+      {/* Footer */}
+      <footer
+        style={{
+          borderTop: '1px solid var(--ada-border-subtle)',
+          backgroundColor: 'var(--ada-bg-sidebar)',
+          padding: '24px',
+          textAlign: 'center',
+          fontSize: '12px',
+          color: 'var(--ada-text-dim)',
+          fontFamily: 'var(--ada-font-mono)',
+        }}
+      >
+        ADA Autonomous Digital Assistant: security-first workstation and mobile intelligence.
+      </footer>
     </div>
   );
 };

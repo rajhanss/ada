@@ -1,25 +1,49 @@
+/* Hallmark: v2.0.0 | genre: modern-minimal | theme: industrial-precision | critique: executive cross-device operating system interface */
 :root {
-  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
-  
-  --ada-saffron: #E87518;
-  --ada-saffron-hover: #F0852A;
-  --ada-saffron-glow: rgba(232, 117, 24, 0.18);
-  
-  --bg-app: #0B0B0E;
-  --bg-sidebar: #101015;
-  --bg-card: #15151C;
-  --bg-card-hover: #1C1C26;
-  --border-subtle: #23232E;
-  --border-focus: #E87518;
+  --ada-font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --ada-font-mono: 'JetBrains Mono', monospace;
 
-  --text-main: #F3F3F8;
-  --text-secondary: #9B9BAF;
-  --text-dim: #606073;
+  --ada-bg-app: #08090c;
+  --ada-bg-sidebar: #0e1015;
+  --ada-bg-card: #13161d;
+  --ada-bg-card-hover: #191d27;
+  --ada-bg-surface-elevated: #1e222e;
 
-  --status-success: #10B981;
-  --status-warning: #F59E0B;
-  --status-danger: #EF4444;
+  --ada-border-subtle: #212532;
+  --ada-border-strong: #313749;
+  --ada-border-focus: #e8590c;
+
+  --ada-saffron: #e8590c;
+  --ada-saffron-hover: #f76707;
+  --ada-saffron-subtle: rgba(232, 89, 12, 0.12);
+
+  --ada-text-main: #f1f3f8;
+  --ada-text-secondary: #9096a7;
+  --ada-text-dim: #5c6274;
+
+  --ada-status-success: #10b981;
+  --ada-status-warning: #f59e0b;
+  --ada-status-danger: #ef4444;
+
+  /* Aliases for convenience */
+  --bg-app: var(--ada-bg-app);
+  --bg-sidebar: var(--ada-bg-sidebar);
+  --bg-card: var(--ada-bg-card);
+  --bg-card-hover: var(--ada-bg-card-hover);
+  --bg-surface-elevated: var(--ada-bg-surface-elevated);
+  --border-subtle: var(--ada-border-subtle);
+  --border-strong: var(--ada-border-strong);
+  --border-focus: var(--ada-border-focus);
+  --text-main: var(--ada-text-main);
+  --text-secondary: var(--ada-text-secondary);
+  --text-dim: var(--ada-text-dim);
+  --status-success: var(--ada-status-success);
+  --status-warning: var(--ada-status-warning);
+  --status-danger: var(--ada-status-danger);
+  --font-sans: var(--ada-font-sans);
+  --font-mono: var(--ada-font-mono);
+
+  color-scheme: dark;
 }
 
 * {
@@ -28,37 +52,119 @@
   padding: 0;
 }
 
+html,
 body {
-  font-family: var(--font-sans);
-  background-color: var(--bg-app);
-  color: var(--text-main);
+  overflow-x: clip;
+  background-color: var(--ada-bg-app);
+  color: var(--ada-text-main);
+  font-family: var(--ada-font-sans);
   line-height: 1.5;
-  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Custom scrollbars */
+/* Accessible focus ring across all interactive controls */
+:focus-visible {
+  outline: 2px solid var(--ada-border-focus);
+  outline-offset: 2px;
+}
+
+/* Reduced motion preference fallback */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Scrollbars */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--bg-app);
+  background: var(--ada-bg-app);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--border-subtle);
-  border-radius: 4px;
+  background: var(--ada-border-subtle);
+  border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--ada-saffron);
+  background: var(--ada-border-strong);
 }
 
-/* Pulsing Orb indicator */
-@keyframes pulse-saffron {
-  0% { transform: scale(0.97); box-shadow: 0 0 0 0 rgba(232, 117, 24, 0.4); }
-  70% { transform: scale(1.03); box-shadow: 0 0 0 8px rgba(232, 117, 24, 0); }
-  100% { transform: scale(0.97); box-shadow: 0 0 0 0 rgba(232, 117, 24, 0); }
+/* Utility UI components */
+.ada-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: var(--ada-saffron);
+  color: var(--ada-text-main);
+  border: 1px solid var(--ada-saffron);
+  padding: 10px 18px;
+  border-radius: 6px;
+  font-family: var(--ada-font-sans);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
 }
 
-.orb-pulse {
-  animation: pulse-saffron 2.5s infinite ease-in-out;
+.ada-btn-primary:hover {
+  background-color: var(--ada-saffron-hover);
+  border-color: var(--ada-saffron-hover);
+}
+
+.ada-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: var(--ada-bg-card);
+  color: var(--ada-text-main);
+  border: 1px solid var(--ada-border-subtle);
+  padding: 10px 18px;
+  border-radius: 6px;
+  font-family: var(--ada-font-sans);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.ada-btn-secondary:hover {
+  background-color: var(--ada-bg-card-hover);
+  border-color: var(--ada-border-strong);
+}
+
+.ada-card {
+  background-color: var(--ada-bg-card);
+  border: 1px solid var(--ada-border-subtle);
+  border-radius: 8px;
+  padding: 24px;
+}
+
+.ada-card:hover {
+  border-color: var(--ada-border-strong);
+}
+
+.ada-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-family: var(--ada-font-mono);
+  font-weight: 500;
+  border: 1px solid var(--ada-border-subtle);
+  background-color: var(--ada-bg-sidebar);
+  color: var(--ada-text-secondary);
 }

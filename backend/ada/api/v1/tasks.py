@@ -9,7 +9,8 @@ from ada.models.domain import Task, TaskCreate, TaskStatus, new_uuid, utcnow
 router = APIRouter(tags=["tasks"])
 
 
-@router.post("/", response_model=Task, status_code=201)
+@router.post("", response_model=Task, status_code=201)
+@router.post("/", response_model=Task, status_code=201, include_in_schema=False)
 async def create_task(
     body: TaskCreate,
     user_id: str = Depends(get_current_user_id),
@@ -41,7 +42,8 @@ async def create_task(
     )
 
 
-@router.get("/", response_model=list[Task])
+@router.get("", response_model=list[Task])
+@router.get("/", response_model=list[Task], include_in_schema=False)
 async def list_tasks(
     user_id: str = Depends(get_current_user_id),
     status: TaskStatus | None = None,

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Laptop, Smartphone, Globe, Plus, QrCode } from 'lucide-react';
+import { Laptop, Smartphone, Globe, QrCode } from 'lucide-react';
 import { api } from '../api/client';
 import type { Device } from '../../../shared/contracts/types';
 
@@ -39,20 +39,20 @@ export const DevicesPage: React.FC = () => {
   const getDeviceIcon = (type: string) => {
     switch (type) {
       case 'desktop':
-        return <Laptop size={20} color="var(--ada-saffron)" />;
+        return <Laptop size={20} color="var(--ada-saffron)" aria-label="Desktop Workstation" />;
       case 'mobile':
-        return <Smartphone size={20} color="#00C3FF" />;
+        return <Smartphone size={20} color="var(--ada-text-main)" aria-label="Mobile Companion" />;
       default:
-        return <Globe size={20} color="#8CE650" />;
+        return <Globe size={20} color="var(--ada-status-success)" aria-label="Network Node" />;
     }
   };
 
   return (
-    <div style={{ flex: 1, height: '100vh', overflowY: 'auto', padding: '32px', backgroundColor: 'var(--bg-app)' }}>
+    <div style={{ flex: 1, height: '100vh', overflowY: 'auto', padding: '32px', backgroundColor: 'var(--ada-bg-app)' }}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '24px' }}>
         <div>
           <h2 style={{ fontSize: '20px', fontWeight: 700 }}>Registered Workstations & Companions</h2>
-          <p style={{ fontSize: '13px', color: 'var(--text-secondary)' }}>
+          <p style={{ fontSize: '13px', color: 'var(--ada-text-secondary)' }}>
             One intelligence operating synchronously across all your endpoints.
           </p>
         </div>
@@ -60,9 +60,9 @@ export const DevicesPage: React.FC = () => {
         <button
           style={{
             backgroundColor: 'var(--ada-saffron)',
-            color: '#FFF',
+            color: 'var(--ada-text-main)',
             border: 'none',
-            borderRadius: '8px',
+            borderRadius: '6px',
             padding: '8px 16px',
             fontSize: '13px',
             fontWeight: 600,
@@ -70,9 +70,10 @@ export const DevicesPage: React.FC = () => {
             display: 'flex',
             alignItems: 'center',
             gap: '8px',
+            transition: 'background-color 0.15s ease',
           }}
         >
-          <QrCode size={16} /> Pair New Device
+          <QrCode size={16} aria-hidden="true" /> Pair New Device
         </button>
       </div>
 
@@ -81,9 +82,9 @@ export const DevicesPage: React.FC = () => {
           <div
             key={d.id}
             style={{
-              backgroundColor: 'var(--bg-card)',
-              border: '1px solid var(--border-subtle)',
-              borderRadius: '12px',
+              backgroundColor: 'var(--ada-bg-card)',
+              border: '1px solid var(--ada-border-subtle)',
+              borderRadius: '8px',
               padding: '20px',
             }}
           >
@@ -98,22 +99,22 @@ export const DevicesPage: React.FC = () => {
                   alignItems: 'center',
                   gap: '6px',
                   fontSize: '11px',
-                  color: 'var(--status-success)',
+                  color: 'var(--ada-status-success)',
                   fontWeight: 600,
                 }}
               >
-                <span style={{ width: '7px', height: '7px', borderRadius: '50%', backgroundColor: 'var(--status-success)' }} />
+                <span style={{ width: '7px', height: '7px', borderRadius: '50%', backgroundColor: 'var(--ada-status-success)' }} />
                 Online
               </span>
             </div>
 
-            <p style={{ fontSize: '12px', color: 'var(--text-secondary)', marginBottom: '16px' }}>
-              Platform: <span style={{ textTransform: 'capitalize', color: 'var(--text-main)' }}>{d.platform}</span>
+            <p style={{ fontSize: '12px', color: 'var(--ada-text-secondary)', marginBottom: '16px' }}>
+              Platform: <span style={{ textTransform: 'capitalize', color: 'var(--ada-text-main)' }}>{d.platform}</span>
             </p>
 
             <div>
-              <span style={{ fontSize: '11px', color: 'var(--text-dim)', textTransform: 'uppercase', fontWeight: 700 }}>
-                Permitted Capabilities
+              <span style={{ fontSize: '11px', color: 'var(--ada-text-dim)', fontWeight: 600 }}>
+                Permitted capabilities
               </span>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginTop: '6px' }}>
                 {d.capabilities.map((c) => (
@@ -121,11 +122,12 @@ export const DevicesPage: React.FC = () => {
                     key={c}
                     style={{
                       fontSize: '11px',
-                      fontFamily: 'var(--font-mono)',
-                      backgroundColor: 'var(--bg-card-hover)',
+                      fontFamily: 'var(--ada-font-mono)',
+                      backgroundColor: 'var(--ada-bg-card-hover)',
                       padding: '2px 8px',
                       borderRadius: '4px',
-                      color: 'var(--text-secondary)',
+                      color: 'var(--ada-text-secondary)',
+                      border: '1px solid var(--ada-border-subtle)',
                     }}
                   >
                     {c}

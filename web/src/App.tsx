@@ -7,7 +7,7 @@ import { DevicesPage } from './pages/DevicesPage';
 import { LandingPage } from './pages/LandingPage';
 import { DynamicIsland } from './components/DynamicIsland';
 import { useAdaWebSocket } from './hooks/useAdaWebSocket';
-import { Sparkles, LayoutDashboard, Globe } from 'lucide-react';
+import { Globe } from 'lucide-react';
 
 export const App: React.FC = () => {
   const [view, setView] = useState<'app' | 'landing'>('landing');
@@ -36,11 +36,11 @@ export const App: React.FC = () => {
       case 'memory':
         return (
           <div style={{ padding: '32px' }}>
-            <h2 style={{ fontSize: '20px', fontWeight: 700, marginBottom: '12px' }}>
-              Persistent Memory & Episodic Retrieval
+            <h2 style={{ fontSize: '18px', fontWeight: 600, marginBottom: '8px', color: 'var(--ada-text-main)' }}>
+              Persistent memory and state
             </h2>
-            <p style={{ color: 'var(--text-secondary)', fontSize: '13px' }}>
-              Inspect long-term user preferences, project knowledge, and verified workflows learned by ADA.
+            <p style={{ color: 'var(--ada-text-secondary)', fontSize: '13px' }}>
+              Inspect long-term preferences, workstation knowledge, and verified automation workflows.
             </p>
           </div>
         );
@@ -50,12 +50,12 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div style={{ display: 'flex', width: '100vw', height: '100vh', overflow: 'hidden', position: 'relative' }}>
-      {/* Floating Apple-Style Dynamic Island inside workspace as well */}
-      <DynamicIsland onActionTriggered={(action) => console.log('Action triggered from Island:', action)} />
+    <div style={{ display: 'flex', width: '100%', height: '100vh', overflow: 'hidden', position: 'relative' }}>
+      <DynamicIsland onActionTriggered={(action) => console.log('Action triggered:', action)} />
 
-      {/* View Switcher Top-Right Pill */}
+      {/* View Switcher Button */}
       <button
+        type="button"
         onClick={() => setView('landing')}
         style={{
           position: 'fixed',
@@ -65,18 +65,18 @@ export const App: React.FC = () => {
           display: 'flex',
           alignItems: 'center',
           gap: '6px',
-          backgroundColor: 'rgba(25, 25, 35, 0.85)',
-          backdropFilter: 'blur(12px)',
-          border: '1px solid rgba(255, 255, 255, 0.1)',
-          color: '#FFF',
-          padding: '6px 14px',
-          borderRadius: '20px',
+          backgroundColor: 'var(--ada-bg-card)',
+          border: '1px solid var(--ada-border-strong)',
+          color: 'var(--ada-text-main)',
+          padding: '6px 12px',
+          borderRadius: '6px',
           fontSize: '12px',
           fontWeight: 600,
           cursor: 'pointer',
         }}
       >
-        <Globe size={14} color="var(--ada-saffron)" /> SaaS Website & Downloads
+        <Globe size={14} color="var(--ada-saffron)" aria-hidden="true" />
+        <span>Downloads and portal</span>
       </button>
 
       <Sidebar
@@ -85,9 +85,11 @@ export const App: React.FC = () => {
         pendingApprovalsCount={pendingApprovalsCount}
         wsConnected={isConnected}
       />
-      <main style={{ flex: 1, height: '100vh', display: 'flex' }}>
+
+      <main style={{ flex: 1, height: '100vh', overflowY: 'auto', backgroundColor: 'var(--ada-bg-app)' }}>
         {renderContent()}
       </main>
     </div>
   );
 };
+export default App;

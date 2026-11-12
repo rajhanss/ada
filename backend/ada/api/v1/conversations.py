@@ -13,7 +13,8 @@ from ada.models.domain import (
 router = APIRouter(tags=["conversations"])
 
 
-@router.post("/", response_model=Conversation, status_code=201)
+@router.post("", response_model=Conversation, status_code=201)
+@router.post("/", response_model=Conversation, status_code=201, include_in_schema=False)
 async def create_conversation(
     body: ConversationCreate,
     user_id: str = Depends(get_current_user_id),
@@ -33,7 +34,8 @@ async def create_conversation(
     )
 
 
-@router.get("/", response_model=list[Conversation])
+@router.get("", response_model=list[Conversation])
+@router.get("/", response_model=list[Conversation], include_in_schema=False)
 async def list_conversations(
     user_id: str = Depends(get_current_user_id),
 ) -> list[Conversation]:

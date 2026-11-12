@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Send, Laptop, Shield, Sparkles, CheckCircle2, AlertTriangle } from 'lucide-react';
+import { Send, Laptop, Shield, Activity, AlertTriangle } from 'lucide-react';
 import { api } from '../api/client';
 import type { Message, AutonomyMode } from '../../../shared/contracts/types';
 
@@ -27,7 +27,7 @@ export const ChatPage: React.FC = () => {
                 conversation_id: c.id,
                 user_id: 'ada',
                 role: 'assistant',
-                content: 'Hello! I am ADA, your persistent personal assistant. I am linked to your Windows computer, mobile companion, and cloud backend.',
+                content: 'ADA operating system core active. Linked to Windows workstation, mobile companion, and cloud backend.',
                 content_type: 'text',
                 created_at: new Date().toISOString(),
               },
@@ -85,7 +85,7 @@ export const ChatPage: React.FC = () => {
           conversation_id: conversationId,
           user_id: 'ada',
           role: 'assistant',
-          content: `⚠️ Failed to execute: ${err.message}`,
+          content: `Failed to execute: ${err.message}`,
           content_type: 'text',
           created_at: new Date().toISOString(),
         },
@@ -96,37 +96,37 @@ export const ChatPage: React.FC = () => {
   };
 
   return (
-    <div style={{ flex: 1, height: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: 'var(--bg-app)' }}>
+    <div style={{ flex: 1, height: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: 'var(--ada-bg-app)' }}>
       {/* Top Bar */}
       <header
         style={{
           height: '60px',
-          borderBottom: '1px solid var(--border-subtle)',
+          borderBottom: '1px solid var(--ada-border-subtle)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
           padding: '0 24px',
-          backgroundColor: 'var(--bg-sidebar)',
+          backgroundColor: 'var(--ada-bg-sidebar)',
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <Laptop size={16} color="var(--ada-saffron)" />
+            <Laptop size={16} color="var(--ada-saffron)" aria-hidden="true" />
             <span style={{ fontSize: '13px', fontWeight: 600 }}>Windows Primary Workstation</span>
-            <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: 'var(--status-success)' }} />
+            <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: 'var(--ada-status-success)' }} />
           </div>
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <Shield size={16} color="var(--text-secondary)" />
-          <span style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>Autonomy Policy:</span>
+          <Shield size={16} color="var(--ada-text-secondary)" aria-hidden="true" />
+          <span style={{ fontSize: '12px', color: 'var(--ada-text-secondary)' }}>Autonomy Policy:</span>
           <select
             value={autonomyMode}
             onChange={(e) => setAutonomyMode(e.target.value as AutonomyMode)}
             style={{
-              backgroundColor: 'var(--bg-card)',
-              color: 'var(--text-main)',
-              border: '1px solid var(--border-subtle)',
+              backgroundColor: 'var(--ada-bg-card)',
+              color: 'var(--ada-text-main)',
+              border: '1px solid var(--ada-border-subtle)',
               borderRadius: '6px',
               padding: '6px 12px',
               fontSize: '12px',
@@ -153,47 +153,47 @@ export const ChatPage: React.FC = () => {
               style={{
                 alignSelf: isUser ? 'flex-end' : 'flex-start',
                 maxWidth: '75%',
-                backgroundColor: isUser ? '#23232C' : 'var(--bg-card)',
-                border: `1px solid ${isUser ? '#363644' : 'var(--border-subtle)'}`,
-                borderRadius: '12px',
+                backgroundColor: isUser ? 'var(--ada-bg-surface-elevated)' : 'var(--ada-bg-card)',
+                border: `1px solid ${isUser ? 'var(--ada-border-strong)' : 'var(--ada-border-subtle)'}`,
+                borderRadius: '8px',
                 padding: '14px 18px',
               }}
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
-                <span style={{ fontSize: '11px', fontWeight: 700, color: isUser ? '#A0A0B8' : 'var(--ada-saffron)' }}>
+                <span style={{ fontSize: '11px', fontWeight: 700, color: isUser ? 'var(--ada-text-secondary)' : 'var(--ada-saffron)' }}>
                   {isUser ? 'You' : 'ADA'}
                 </span>
                 {m.metadata?.requires_approval && (
-                  <span style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '10px', color: 'var(--status-warning)', fontWeight: 600 }}>
-                    <AlertTriangle size={12} /> Awaiting Approval
+                  <span style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '10px', color: 'var(--ada-status-warning)', fontWeight: 600 }}>
+                    <AlertTriangle size={12} aria-hidden="true" /> Awaiting approval
                   </span>
                 )}
               </div>
-              <div style={{ fontSize: '13.5px', whiteSpace: 'pre-wrap', lineHeight: 1.5 }}>
+              <div style={{ fontSize: '13.5px', whiteSpace: 'pre-wrap', lineHeight: 1.5, color: 'var(--ada-text-main)' }}>
                 {m.content}
               </div>
             </div>
           );
         })}
         {isSending && (
-          <div style={{ alignSelf: 'flex-start', display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--text-secondary)', fontSize: '12px' }}>
-            <Sparkles size={16} className="orb-pulse" color="var(--ada-saffron)" />
-            <span>ADA is contextualizing and orchestrating...</span>
+          <div style={{ alignSelf: 'flex-start', display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--ada-text-secondary)', fontSize: '12px' }}>
+            <Activity size={16} color="var(--ada-saffron)" aria-label="Processing indicator" />
+            <span>ADA is orchestrating task execution...</span>
           </div>
         )}
         <div ref={messagesEndRef} />
       </div>
 
       {/* Input Box */}
-      <footer style={{ padding: '16px 24px', backgroundColor: 'var(--bg-sidebar)', borderTop: '1px solid var(--border-subtle)' }}>
+      <footer style={{ padding: '16px 24px', backgroundColor: 'var(--ada-bg-sidebar)', borderTop: '1px solid var(--ada-border-subtle)' }}>
         <div
           style={{
             display: 'flex',
             alignItems: 'center',
             gap: '12px',
-            backgroundColor: 'var(--bg-card)',
-            border: '1px solid var(--border-subtle)',
-            borderRadius: '10px',
+            backgroundColor: 'var(--ada-bg-card)',
+            border: '1px solid var(--ada-border-subtle)',
+            borderRadius: '8px',
             padding: '8px 14px',
           }}
         >
@@ -208,18 +208,19 @@ export const ChatPage: React.FC = () => {
               backgroundColor: 'transparent',
               border: 'none',
               outline: 'none',
-              color: 'var(--text-main)',
+              color: 'var(--ada-text-main)',
               fontSize: '14px',
+              fontFamily: 'inherit',
             }}
           />
           <button
             onClick={handleSend}
             disabled={!inputText.trim() || isSending}
             style={{
-              backgroundColor: inputText.trim() ? 'var(--ada-saffron)' : 'var(--border-subtle)',
-              color: '#FFF',
+              backgroundColor: inputText.trim() ? 'var(--ada-saffron)' : 'var(--ada-border-subtle)',
+              color: 'var(--ada-text-main)',
               border: 'none',
-              borderRadius: '8px',
+              borderRadius: '6px',
               padding: '8px 16px',
               fontWeight: 600,
               fontSize: '13px',
@@ -227,9 +228,10 @@ export const ChatPage: React.FC = () => {
               display: 'flex',
               alignItems: 'center',
               gap: '6px',
+              transition: 'background-color 0.15s ease',
             }}
           >
-            <Send size={14} /> Send
+            <Send size={14} aria-hidden="true" /> Send
           </button>
         </div>
       </footer>

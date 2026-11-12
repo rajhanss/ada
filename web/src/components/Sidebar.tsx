@@ -5,7 +5,6 @@ import {
   ShieldAlert,
   Laptop,
   Brain,
-  Radio,
 } from 'lucide-react';
 
 export type TabType = 'chat' | 'tasks' | 'approvals' | 'devices' | 'memory';
@@ -31,91 +30,107 @@ export const Sidebar: React.FC<SidebarProps> = ({
   wsConnected,
 }) => {
   const navItems: NavItem[] = [
-    { id: 'chat', label: 'Chat & Actions', icon: MessageSquare },
-    { id: 'tasks', label: 'Task Monitor', icon: ListTodo },
+    { id: 'chat', label: 'Chat & actions', icon: MessageSquare },
+    { id: 'tasks', label: 'Task monitor', icon: ListTodo },
     {
       id: 'approvals',
       label: 'Authorizations',
       icon: ShieldAlert,
       badge: pendingApprovalsCount > 0 ? pendingApprovalsCount : undefined,
     },
-    { id: 'devices', label: 'Connected Devices', icon: Laptop },
-    { id: 'memory', label: 'Memory & State', icon: Brain },
+    { id: 'devices', label: 'Connected devices', icon: Laptop },
+    { id: 'memory', label: 'Memory & state', icon: Brain },
   ];
 
   return (
-    <aside style={{
-      width: '260px',
-      height: '100vh',
-      backgroundColor: 'var(--bg-sidebar)',
-      borderRight: '1px solid var(--border-subtle)',
-      display: 'flex',
-      flexDirection: 'column',
-      padding: '20px 16px',
-    }}>
+    <aside
+      style={{
+        width: '240px',
+        height: '100vh',
+        backgroundColor: 'var(--ada-bg-sidebar)',
+        borderRight: '1px solid var(--ada-border-subtle)',
+        display: 'flex',
+        flexDirection: 'column',
+        padding: '20px 16px',
+      }}
+    >
       {/* Brand Header */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '32px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '28px' }}>
         <div
-          className="orb-pulse"
           style={{
-            width: '32px',
-            height: '32px',
-            borderRadius: '50%',
+            width: '28px',
+            height: '28px',
+            borderRadius: '4px',
             backgroundColor: 'var(--ada-saffron)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            boxShadow: '0 0 12px var(--ada-saffron-glow)',
+            color: 'var(--ada-text-main)',
+            fontWeight: 800,
+            fontSize: '13px',
+            fontFamily: 'var(--ada-font-mono)',
           }}
         >
-          <div style={{ width: '12px', height: '12px', borderRadius: '50%', backgroundColor: '#FFF' }} />
+          A
         </div>
         <div>
-          <h1 style={{ fontSize: '18px', fontWeight: 700, letterSpacing: '0.02em', color: '#FFF' }}>
+          <h1 style={{ fontSize: '15px', fontWeight: 700, color: 'var(--ada-text-main)' }}>
             ADA
           </h1>
-          <p style={{ fontSize: '11px', color: 'var(--text-dim)', marginTop: '-2px' }}>
-            Autonomous Digital Assistant
+          <p style={{ fontSize: '11px', color: 'var(--ada-text-dim)', marginTop: '-2px' }}>
+            Autonomous OS
           </p>
         </div>
       </div>
 
-      {/* Navigation */}
-      <nav style={{ display: 'flex', flexDirection: 'column', gap: '6px', flex: 1 }}>
+      {/* Navigation List */}
+      <nav style={{ display: 'flex', flexDirection: 'column', gap: '4px', flex: 1 }}>
         {navItems.map((item) => {
           const Icon = item.icon;
           const isActive = currentTab === item.id;
+
           return (
             <button
               key={item.id}
-              onClick={() => onTabChange(item.id as TabType)}
+              type="button"
+              onClick={() => onTabChange(item.id)}
               style={{
                 display: 'flex',
                 alignItems: 'center',
-                gap: '12px',
+                justifyContent: 'space-between',
                 padding: '10px 12px',
-                borderRadius: '8px',
+                borderRadius: '6px',
                 border: 'none',
-                backgroundColor: isActive ? 'var(--bg-card-hover)' : 'transparent',
-                color: isActive ? 'var(--ada-saffron)' : 'var(--text-secondary)',
-                cursor: 'pointer',
+                backgroundColor: isActive ? 'var(--ada-bg-card)' : 'transparent',
+                color: isActive ? 'var(--ada-text-main)' : 'var(--ada-text-secondary)',
+                fontWeight: isActive ? 600 : 400,
                 fontSize: '13px',
-                fontWeight: isActive ? 600 : 500,
+                cursor: 'pointer',
+                fontFamily: 'var(--ada-font-sans)',
                 textAlign: 'left',
-                transition: 'all 0.15s ease',
+                width: '100%',
+                transition: 'background-color 0.15s ease, color 0.15s ease',
               }}
             >
-              <Icon size={18} color={isActive ? 'var(--ada-saffron)' : 'var(--text-secondary)'} />
-              <span style={{ flex: 1 }}>{item.label}</span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <Icon
+                  size={16}
+                  color={isActive ? 'var(--ada-saffron)' : 'var(--ada-text-dim)'}
+                  aria-hidden="true"
+                />
+                <span>{item.label}</span>
+              </div>
+
               {item.badge !== undefined && (
                 <span
                   style={{
-                    backgroundColor: 'var(--status-warning)',
-                    color: '#000',
-                    fontSize: '11px',
+                    backgroundColor: 'var(--ada-status-warning)',
+                    color: 'var(--ada-bg-app)',
+                    fontSize: '10px',
                     fontWeight: 700,
-                    padding: '2px 7px',
+                    padding: '1px 6px',
                     borderRadius: '10px',
+                    fontFamily: 'var(--ada-font-mono)',
                   }}
                 >
                   {item.badge}
@@ -126,25 +141,28 @@ export const Sidebar: React.FC<SidebarProps> = ({
         })}
       </nav>
 
-      {/* Footer Connection Pill */}
+      {/* Connection Status Footer */}
       <div
         style={{
+          paddingTop: '16px',
+          borderTop: '1px solid var(--ada-border-subtle)',
           display: 'flex',
           alignItems: 'center',
           gap: '8px',
-          padding: '10px 12px',
-          backgroundColor: 'var(--bg-card)',
-          borderRadius: '8px',
-          border: '1px solid var(--border-subtle)',
+          fontSize: '12px',
+          color: 'var(--ada-text-dim)',
+          fontFamily: 'var(--ada-font-mono)',
         }}
       >
-        <Radio
-          size={14}
-          color={wsConnected ? 'var(--status-success)' : 'var(--status-danger)'}
+        <span
+          style={{
+            width: '6px',
+            height: '6px',
+            borderRadius: '50%',
+            backgroundColor: wsConnected ? 'var(--ada-status-success)' : 'var(--ada-status-danger)',
+          }}
         />
-        <span style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>
-          {wsConnected ? 'Cloud Sync Online' : 'Connecting Sync...'}
-        </span>
+        <span>{wsConnected ? 'WebSocket connected' : 'Connecting to daemon...'}</span>
       </div>
     </aside>
   );

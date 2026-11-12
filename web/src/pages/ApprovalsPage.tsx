@@ -39,24 +39,24 @@ export const ApprovalsPage: React.FC<ApprovalsPageProps> = ({ onApprovalResolved
   };
 
   return (
-    <div style={{ flex: 1, height: '100vh', overflowY: 'auto', padding: '32px', backgroundColor: 'var(--bg-app)' }}>
+    <div style={{ flex: 1, height: '100vh', overflowY: 'auto', padding: '32px', backgroundColor: 'var(--ada-bg-app)' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
-        <ShieldAlert size={24} color="var(--status-warning)" />
+        <ShieldAlert size={24} color="var(--ada-status-warning)" aria-hidden="true" />
         <h2 style={{ fontSize: '20px', fontWeight: 700 }}>Human-in-the-Loop Authorizations</h2>
       </div>
-      <p style={{ fontSize: '13px', color: 'var(--text-secondary)', marginBottom: '24px' }}>
+      <p style={{ fontSize: '13px', color: 'var(--ada-text-secondary)', marginBottom: '24px' }}>
         ADA pauses before taking potentially destructive or critical actions until you review and authorize them.
       </p>
 
       {approvals.length === 0 ? (
         <div
           style={{
-            backgroundColor: 'var(--bg-card)',
-            border: '1px solid var(--border-subtle)',
+            backgroundColor: 'var(--ada-bg-card)',
+            border: '1px solid var(--ada-border-subtle)',
             borderRadius: '10px',
             padding: '32px',
             textAlign: 'center',
-            color: 'var(--text-secondary)',
+            color: 'var(--ada-text-secondary)',
           }}
         >
           No pending authorizations. ADA is operating within permitted autonomy boundaries.
@@ -67,40 +67,39 @@ export const ApprovalsPage: React.FC<ApprovalsPageProps> = ({ onApprovalResolved
             <div
               key={a.id}
               style={{
-                backgroundColor: 'var(--bg-card)',
-                border: '1px solid #E87518',
+                backgroundColor: 'var(--ada-bg-card)',
+                border: '1px solid var(--ada-border-focus)',
                 borderRadius: '10px',
                 padding: '20px',
               }}
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
-                <AlertTriangle size={18} color="var(--status-warning)" />
+                <AlertTriangle size={18} color="var(--ada-status-warning)" aria-hidden="true" />
                 <span style={{ fontSize: '15px', fontWeight: 700 }}>Action: {a.tool_name}</span>
                 <span
                   style={{
-                    backgroundColor: 'rgba(232, 117, 24, 0.2)',
+                    backgroundColor: 'var(--ada-saffron-subtle)',
                     color: 'var(--ada-saffron)',
                     fontSize: '11px',
                     fontWeight: 700,
                     padding: '2px 8px',
                     borderRadius: '4px',
-                    textTransform: 'uppercase',
                   }}
                 >
-                  {a.risk_level} Risk
+                  {a.risk_level} risk
                 </span>
               </div>
 
-              <p style={{ fontSize: '13px', color: 'var(--text-main)', marginBottom: '12px' }}>
+              <p style={{ fontSize: '13px', color: 'var(--ada-text-main)', marginBottom: '12px' }}>
                 {a.reason}
               </p>
 
               <div
                 style={{
-                  backgroundColor: 'var(--bg-card-hover)',
+                  backgroundColor: 'var(--ada-bg-card-hover)',
                   padding: '10px 14px',
                   borderRadius: '6px',
-                  fontFamily: 'var(--font-mono)',
+                  fontFamily: 'var(--ada-font-mono)',
                   fontSize: '12px',
                   marginBottom: '16px',
                 }}
@@ -112,8 +111,8 @@ export const ApprovalsPage: React.FC<ApprovalsPageProps> = ({ onApprovalResolved
                 <button
                   onClick={() => handleDecision(a.id, true)}
                   style={{
-                    backgroundColor: 'var(--status-success)',
-                    color: '#FFF',
+                    backgroundColor: 'var(--ada-status-success)',
+                    color: 'var(--ada-text-main)',
                     border: 'none',
                     borderRadius: '6px',
                     padding: '8px 18px',
@@ -123,15 +122,16 @@ export const ApprovalsPage: React.FC<ApprovalsPageProps> = ({ onApprovalResolved
                     display: 'flex',
                     alignItems: 'center',
                     gap: '6px',
+                    transition: 'opacity 0.15s ease',
                   }}
                 >
-                  <Check size={16} /> Approve & Execute
+                  <Check size={16} aria-hidden="true" /> Approve & Execute
                 </button>
                 <button
                   onClick={() => handleDecision(a.id, false)}
                   style={{
-                    backgroundColor: 'var(--status-danger)',
-                    color: '#FFF',
+                    backgroundColor: 'var(--ada-status-danger)',
+                    color: 'var(--ada-text-main)',
                     border: 'none',
                     borderRadius: '6px',
                     padding: '8px 18px',
@@ -141,9 +141,10 @@ export const ApprovalsPage: React.FC<ApprovalsPageProps> = ({ onApprovalResolved
                     display: 'flex',
                     alignItems: 'center',
                     gap: '6px',
+                    transition: 'opacity 0.15s ease',
                   }}
                 >
-                  <X size={16} /> Deny
+                  <X size={16} aria-hidden="true" /> Deny
                 </button>
               </div>
             </div>

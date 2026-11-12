@@ -9,7 +9,8 @@ from ada.models.domain import Approval, ApprovalStatus
 router = APIRouter(tags=["approvals"])
 
 
-@router.get("/", response_model=list[Approval])
+@router.get("", response_model=list[Approval])
+@router.get("/", response_model=list[Approval], include_in_schema=False)
 async def list_approvals(
     user_id: str = Depends(get_current_user_id),
     status: ApprovalStatus | None = ApprovalStatus.PENDING,

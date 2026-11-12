@@ -3,7 +3,6 @@ import {
   Eye,
   Scan,
   Mic,
-  Sparkles,
   ChevronDown,
   Monitor,
   Globe,
@@ -103,22 +102,17 @@ export const DynamicIsland: React.FC<DynamicIslandProps> = ({
       ref={islandRef}
       style={{
         position: 'fixed',
-        top: '24px',
+        top: '20px',
         left: '50%',
         transform: 'translateX(-50%)',
         zIndex: 9999,
-        transition: 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1)',
-        width: mode === 'expanded' ? '560px' : mode === 'compact' ? '210px' : '280px',
-        minHeight: mode === 'expanded' ? '280px' : '52px',
-        backgroundColor: 'rgba(10, 10, 14, 0.88)',
-        backdropFilter: 'blur(30px) saturate(190%)',
-        WebkitBackdropFilter: 'blur(30px) saturate(190%)',
-        borderRadius: mode === 'expanded' ? '28px' : '36px',
-        border: '1px solid rgba(255, 255, 255, 0.12)',
-        boxShadow: mode === 'expanded'
-          ? '0 30px 80px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(232, 117, 24, 0.25)'
-          : '0 16px 40px rgba(0, 0, 0, 0.7), 0 0 20px rgba(232, 117, 24, 0.15)',
-        padding: mode === 'expanded' ? '20px 24px' : '8px 16px',
+        transition: 'opacity 0.2s ease, transform 0.2s ease',
+        width: mode === 'expanded' ? '540px' : mode === 'compact' ? '210px' : '280px',
+        minHeight: mode === 'expanded' ? '260px' : '48px',
+        backgroundColor: 'var(--ada-bg-sidebar)',
+        borderRadius: mode === 'expanded' ? '12px' : '24px',
+        border: '1px solid var(--ada-border-strong)',
+        padding: mode === 'expanded' ? '20px' : '8px 16px',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
@@ -137,82 +131,68 @@ export const DynamicIsland: React.FC<DynamicIslandProps> = ({
         }}
         onClick={() => setMode(mode === 'expanded' ? 'compact' : 'expanded')}
       >
-        {/* Animated Cyber-Organic Eyes */}
+        {/* Assistant Status & Eye indicator */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           {mode === 'reading_screen' ? (
-            /* Scanning Visor */
             <div
               style={{
-                width: '42px',
-                height: '14px',
-                borderRadius: '7px',
-                background: 'linear-gradient(90deg, #00C3FF, #E87518)',
-                boxShadow: '0 0 12px #00C3FF',
-                animation: 'pulse-saffron 1s infinite alternate',
+                width: '36px',
+                height: '12px',
+                borderRadius: '6px',
+                backgroundColor: 'var(--ada-saffron)',
               }}
             />
           ) : (
-            /* Expressive Eyes */
-            <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
-              {/* Left Eye */}
+            <div style={{ display: 'flex', gap: '5px', alignItems: 'center' }}>
               <div
                 style={{
-                  width: '16px',
-                  height: isBlinking ? '2px' : '16px',
+                  width: '14px',
+                  height: isBlinking ? '2px' : '14px',
                   borderRadius: '50%',
-                  backgroundColor: '#1E1E28',
+                  backgroundColor: 'var(--ada-bg-app)',
                   border: '1.5px solid var(--ada-saffron)',
-                  boxShadow: '0 0 8px rgba(232, 117, 24, 0.4)',
                   position: 'relative',
                   overflow: 'hidden',
-                  transition: 'height 0.1s ease',
                 }}
               >
                 {!isBlinking && (
                   <div
                     style={{
-                      width: '6px',
-                      height: '6px',
+                      width: '5px',
+                      height: '5px',
                       borderRadius: '50%',
-                      backgroundColor: '#FFFFFF',
-                      boxShadow: '0 0 4px #FFF',
+                      backgroundColor: 'var(--ada-text-main)',
                       position: 'absolute',
                       top: '50%',
                       left: '50%',
                       transform: `translate(-50%, -50%) translate(${mousePos.x}px, ${mousePos.y}px)`,
-                      transition: 'transform 0.05s linear',
                     }}
                   />
                 )}
               </div>
 
-              {/* Right Eye */}
               <div
                 style={{
-                  width: '16px',
-                  height: isBlinking ? '2px' : '16px',
+                  width: '14px',
+                  height: isBlinking ? '2px' : '14px',
                   borderRadius: '50%',
-                  backgroundColor: '#1E1E28',
+                  backgroundColor: 'var(--ada-bg-app)',
                   border: '1.5px solid var(--ada-saffron)',
-                  boxShadow: '0 0 8px rgba(232, 117, 24, 0.4)',
                   position: 'relative',
                   overflow: 'hidden',
-                  transition: 'height 0.1s ease',
                 }}
               >
                 {!isBlinking && (
                   <div
                     style={{
-                      width: '6px',
-                      height: '6px',
+                      width: '5px',
+                      height: '5px',
                       borderRadius: '50%',
-                      backgroundColor: '#FFFFFF',
-                      boxShadow: '0 0 4px #FFF',
+                      backgroundColor: 'var(--ada-text-main)',
                       position: 'absolute',
                       top: '50%',
                       left: '50%',
                       transform: `translate(-50%, -50%) translate(${mousePos.x}px, ${mousePos.y}px)`,
-                      transition: 'transform 0.05s linear',
                     }}
                   />
                 )}
@@ -222,11 +202,11 @@ export const DynamicIsland: React.FC<DynamicIslandProps> = ({
 
           <span
             style={{
-              fontSize: '12.5px',
-              fontWeight: 700,
-              letterSpacing: '0.02em',
-              color: mode === 'reading_screen' ? '#00C3FF' : '#F3F3F8',
+              fontSize: '12px',
+              fontWeight: 600,
+              color: mode === 'reading_screen' ? 'var(--ada-saffron)' : 'var(--ada-text-main)',
               marginLeft: '4px',
+              fontFamily: 'var(--ada-font-mono)',
             }}
           >
             {statusText}
@@ -238,184 +218,115 @@ export const DynamicIsland: React.FC<DynamicIslandProps> = ({
           {mode === 'compact' ? (
             <div
               style={{
-                width: '7px',
-                height: '7px',
+                width: '6px',
+                height: '6px',
                 borderRadius: '50%',
-                backgroundColor: 'var(--status-success)',
-                boxShadow: '0 0 8px var(--status-success)',
+                backgroundColor: 'var(--ada-status-success)',
               }}
             />
           ) : (
-            <X size={16} color="var(--text-secondary)" />
+            <X size={15} color="var(--ada-text-secondary)" aria-hidden="true" />
           )}
         </div>
       </div>
 
-      {/* Expanded Selection Drawer (Apple-style Quick Control Surface) */}
+      {/* Expanded Quick Actions Panel */}
       {mode === 'expanded' && (
-        <div style={{ marginTop: '18px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
-          {/* Quick Action Badges */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '8px' }}>
-            <button
-              onClick={triggerScreenAnalysis}
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                gap: '6px',
-                padding: '12px 6px',
-                borderRadius: '12px',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
-                backgroundColor: 'rgba(25, 25, 35, 0.6)',
-                color: '#FFF',
-                cursor: 'pointer',
-              }}
-            >
-              <Scan size={18} color="#00C3FF" />
-              <span style={{ fontSize: '11px', fontWeight: 600 }}>See Screen</span>
-            </button>
-
-            <button
-              onClick={() => onActionTriggered?.('Search web for latest AI news')}
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                gap: '6px',
-                padding: '12px 6px',
-                borderRadius: '12px',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
-                backgroundColor: 'rgba(25, 25, 35, 0.6)',
-                color: '#FFF',
-                cursor: 'pointer',
-              }}
-            >
-              <Globe size={18} color="var(--ada-saffron)" />
-              <span style={{ fontSize: '11px', fontWeight: 600 }}>Explore Web</span>
-            </button>
-
-            <button
-              onClick={() => onActionTriggered?.('Focus window and click start button')}
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                gap: '6px',
-                padding: '12px 6px',
-                borderRadius: '12px',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
-                backgroundColor: 'rgba(25, 25, 35, 0.6)',
-                color: '#FFF',
-                cursor: 'pointer',
-              }}
-            >
-              <Monitor size={18} color="#10B981" />
-              <span style={{ fontSize: '11px', fontWeight: 600 }}>Control PC</span>
-            </button>
-
-            <button
-              onClick={() => onActionTriggered?.('pytest tests/')}
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                gap: '6px',
-                padding: '12px 6px',
-                borderRadius: '12px',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
-                backgroundColor: 'rgba(25, 25, 35, 0.6)',
-                color: '#FFF',
-                cursor: 'pointer',
-              }}
-            >
-              <Terminal size={18} color="#F59E0B" />
-              <span style={{ fontSize: '11px', fontWeight: 600 }}>Run Tests</span>
-            </button>
-          </div>
-
-          {/* Direct Natural Language Command Input */}
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '10px',
-              backgroundColor: 'rgba(15, 15, 20, 0.95)',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
-              borderRadius: '14px',
-              padding: '6px 14px',
-            }}
-          >
+        <div style={{ marginTop: '16px', display: 'flex', flexDirection: 'column', gap: '14px' }}>
+          {/* Quick command input */}
+          <div style={{ display: 'flex', gap: '8px' }}>
             <input
               type="text"
               value={commandInput}
               onChange={(e) => setCommandInput(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handleCommandSubmit()}
-              placeholder="Tell ADA what to do or see..."
+              placeholder="Tell ADA what to execute..."
               style={{
                 flex: 1,
-                backgroundColor: 'transparent',
-                border: 'none',
-                outline: 'none',
-                color: '#FFF',
+                backgroundColor: 'var(--ada-bg-app)',
+                border: '1px solid var(--ada-border-subtle)',
+                borderRadius: '6px',
+                padding: '8px 12px',
+                color: 'var(--ada-text-main)',
                 fontSize: '13px',
+                fontFamily: 'var(--ada-font-sans)',
+                outline: 'none',
               }}
             />
             <button
+              type="button"
               onClick={handleCommandSubmit}
-              disabled={!commandInput.trim()}
-              style={{
-                backgroundColor: 'var(--ada-saffron)',
-                color: '#FFF',
-                border: 'none',
-                borderRadius: '8px',
-                padding: '6px 12px',
-                cursor: 'pointer',
-                fontWeight: 600,
-                fontSize: '12px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '4px',
-              }}
+              className="ada-btn-primary"
+              style={{ padding: '8px 14px' }}
             >
-              <Send size={12} /> Run
+              <Send size={14} aria-hidden="true" />
             </button>
           </div>
 
-          {/* Autonomy Level Footer */}
+          {/* Action triggers */}
+          <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+            <button
+              type="button"
+              onClick={triggerScreenAnalysis}
+              className="ada-btn-secondary"
+              style={{ fontSize: '12px', padding: '6px 12px' }}
+            >
+              <Scan size={13} aria-hidden="true" />
+              <span>Analyze active screen</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => {
+                setMode('listening');
+                setStatusText('Listening for voice...');
+                setTimeout(() => {
+                  setMode('compact');
+                  setStatusText('ADA Online');
+                }, 3000);
+              }}
+              className="ada-btn-secondary"
+              style={{ fontSize: '12px', padding: '6px 12px' }}
+            >
+              <Mic size={13} aria-hidden="true" />
+              <span>Voice input</span>
+            </button>
+          </div>
+
+          {/* Autonomy mode selector */}
           <div
             style={{
+              paddingTop: '12px',
+              borderTop: '1px solid var(--ada-border-subtle)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
-              paddingTop: '6px',
-              borderTop: '1px solid rgba(255, 255, 255, 0.06)',
+              fontSize: '11px',
+              color: 'var(--ada-text-secondary)',
             }}
           >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <Shield size={14} color="var(--ada-saffron)" />
-              <span style={{ fontSize: '11px', color: 'var(--text-secondary)' }}>
-                Target: Windows Primary Workstation
-              </span>
+            <span>Autonomy policy:</span>
+            <div style={{ display: 'flex', gap: '4px' }}>
+              {(['supervised', 'semi_autonomous', 'full_autonomous'] as AutonomyMode[]).map((m) => (
+                <button
+                  key={m}
+                  type="button"
+                  onClick={() => onAutonomyModeChange?.(m)}
+                  style={{
+                    backgroundColor: autonomyMode === m ? 'var(--ada-saffron)' : 'var(--ada-bg-card)',
+                    color: 'var(--ada-text-main)',
+                    border: '1px solid var(--ada-border-subtle)',
+                    borderRadius: '4px',
+                    padding: '2px 8px',
+                    fontSize: '10px',
+                    fontFamily: 'var(--ada-font-mono)',
+                    cursor: 'pointer',
+                  }}
+                >
+                  {m.replace('_', ' ')}
+                </button>
+              ))}
             </div>
-
-            <select
-              value={autonomyMode}
-              onChange={(e) => onAutonomyModeChange?.(e.target.value as AutonomyMode)}
-              style={{
-                backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                color: '#FFF',
-                border: 'none',
-                borderRadius: '6px',
-                padding: '3px 8px',
-                fontSize: '11px',
-                cursor: 'pointer',
-                outline: 'none',
-              }}
-            >
-              <option value="supervised">Supervised (Standard)</option>
-              <option value="bounded">Bounded (Autonomous)</option>
-              <option value="assisted">Assisted (Read Only)</option>
-            </select>
           </div>
         </div>
       )}
