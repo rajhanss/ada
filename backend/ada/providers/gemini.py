@@ -35,7 +35,7 @@ class GeminiAdapter(BaseModelAdapter):
         self,
         spec: ModelSpec,
         api_key: str | None = None,
-        timeout_seconds: float = 60.0,
+        timeout_seconds: float = 12.0,
     ) -> None:
         super().__init__(spec=spec, api_key=api_key, base_url=GEMINI_BASE_URL)
         self.timeout_seconds = timeout_seconds

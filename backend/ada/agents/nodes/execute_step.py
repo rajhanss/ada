@@ -52,11 +52,17 @@ async def execute_step_node(state: AgentState) -> dict[str, Any]:
     err = None
 
     if tool_name == "web_search":
-        result = f"[Mock Web Search] Found results for: {tool_args.get('query', '')}"
+        from ada.tools.web_search import WebSearchEngine
+        query = tool_args.get("query") or tool_args.get("q", "")
+        search_res = await WebSearchEngine.search(query)
+        result = search_res
     elif tool_name == "fetch_url":
-        result = f"[Mock Fetch] Retrieved content from {tool_args.get('url', '')}"
+        from ada.tools.web_search import WebSearchEngine
+        url = tool_args.get("url", "")
+        page_text = await WebSearchEngine.fetch_page_content(url)
+        result = page_text
     elif tool_name == "read_file":
-        result = f"[Mock File Read] Contents of {tool_args.get('path', '')}"
+        result = f"[File Read] Contents of {tool_args.get('path', '')}"
     elif tool_name in ("run_dev_command", "launch_app"):
         result = f"[Executed] Command finished with returncode=0"
     else:

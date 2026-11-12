@@ -31,10 +31,10 @@ logger = structlog.get_logger(__name__)
 
 # Standard Gemini model specs
 GEMINI_MODELS: dict[str, ModelSpec] = {
-    "gemini-2.0-flash": ModelSpec(
-        model_id="gemini-2.0-flash",
+    "gemini-3.8-flash": ModelSpec(
+        model_id="gemini-3.8-flash",
         provider="gemini",
-        display_name="Gemini 2.0 Flash",
+        display_name="Gemini 3.8 Flash",
         context_window=1_048_576,
         cost_per_million_input=0.10,
         cost_per_million_output=0.40,
@@ -48,20 +48,38 @@ GEMINI_MODELS: dict[str, ModelSpec] = {
             ModelCapability.FAST,
         }),
     ),
-    "gemini-2.5-pro": ModelSpec(
-        model_id="gemini-2.5-pro",
+    "gemini-2.5-flash-lite": ModelSpec(
+        model_id="gemini-2.5-flash-lite",
         provider="gemini",
-        display_name="Gemini 2.5 Pro",
-        context_window=2_097_152,
-        cost_per_million_input=1.25,
-        cost_per_million_output=5.00,
-        typical_latency_ms=1500,
+        display_name="Gemini 2.5 Flash Lite",
+        context_window=1_048_576,
+        cost_per_million_input=0.075,
+        cost_per_million_output=0.30,
+        typical_latency_ms=300,
         capabilities=frozenset({
             ModelCapability.REASONING,
             ModelCapability.VISION,
             ModelCapability.CODE,
             ModelCapability.FUNCTION_CALLING,
             ModelCapability.STREAMING,
+            ModelCapability.FAST,
+        }),
+    ),
+    "gemini-flash-lite-latest": ModelSpec(
+        model_id="gemini-flash-lite-latest",
+        provider="gemini",
+        display_name="Gemini Flash Lite Latest",
+        context_window=1_048_576,
+        cost_per_million_input=0.075,
+        cost_per_million_output=0.30,
+        typical_latency_ms=300,
+        capabilities=frozenset({
+            ModelCapability.REASONING,
+            ModelCapability.VISION,
+            ModelCapability.CODE,
+            ModelCapability.FUNCTION_CALLING,
+            ModelCapability.STREAMING,
+            ModelCapability.FAST,
         }),
     ),
 }
@@ -223,43 +241,42 @@ class ModelGateway:
         # Define priority model chains per task type
         priority_chains: dict[TaskType, list[str]] = {
             TaskType.CLASSIFICATION: [
-                "llama-3.1-8b-instant",
-                "gemini-2.0-flash",
-                "llama-3.3-70b-versatile",
+                "qwen/qwen3.8-27b",
+                "gemini-3.8-flash",
+                "gemini-flash-lite-latest",
                 "qwen2.5:7b",
             ],
             TaskType.FAST_RESPONSE: [
-                "llama-3.1-8b-instant",
-                "gemini-2.0-flash",
-                "llama-3.3-70b-versatile",
+                "qwen/qwen3.8-27b",
+                "gemini-3.8-flash",
+                "gemini-flash-lite-latest",
             ],
             TaskType.PLANNING: [
-                "gemini-2.5-pro",
-                "anthropic/claude-3.7-sonnet",
-                "gemini-2.0-flash",
-                "llama-3.3-70b-versatile",
+                "gemini-3.8-flash",
+                "gemini-flash-lite-latest",
+                "qwen/qwen3.8-27b",
                 "qwen2.5:7b",
             ],
             TaskType.CODING: [
-                "gemini-2.5-pro",
-                "qwen/qwen-2.5-coder-32b-instruct",
-                "gemini-2.0-flash",
-                "anthropic/claude-3.7-sonnet",
+                "gemini-3.8-flash",
+                "qwen/qwen3.8-27b",
+                "gemini-flash-lite-latest",
                 "qwen2.5:7b",
             ],
             TaskType.VISION: [
-                "gemini-2.0-flash",
-                "gemini-2.5-pro",
-                "anthropic/claude-3.7-sonnet",
+                "gemini-3.8-flash",
+                "gemini-flash-lite-latest",
             ],
             TaskType.CONVERSATION: [
-                "gemini-2.0-flash",
-                "llama-3.3-70b-versatile",
+                "qwen/qwen3.8-27b",
+                "gemini-3.8-flash",
+                "gemini-flash-lite-latest",
                 "qwen2.5:7b",
             ],
             TaskType.SUMMARIZATION: [
-                "gemini-2.0-flash",
-                "llama-3.3-70b-versatile",
+                "qwen/qwen3.8-27b",
+                "gemini-3.8-flash",
+                "gemini-flash-lite-latest",
                 "qwen2.5:7b",
             ],
         }

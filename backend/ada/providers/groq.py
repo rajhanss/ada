@@ -12,14 +12,14 @@ GROQ_BASE_URL = "https://api.groq.com/openai/v1"
 
 # Standard Groq model specs in ADA
 GROQ_MODELS: dict[str, ModelSpec] = {
-    "llama-3.3-70b-versatile": ModelSpec(
-        model_id="llama-3.3-70b-versatile",
+    "qwen/qwen3.8-27b": ModelSpec(
+        model_id="qwen/qwen3.8-27b",
         provider="groq",
-        display_name="Groq Llama 3.3 70B",
-        context_window=128_000,
-        cost_per_million_input=0.59,
-        cost_per_million_output=0.79,
-        typical_latency_ms=250,
+        display_name="Groq Qwen 3.8 27B",
+        context_window=32_000,
+        cost_per_million_input=0.20,
+        cost_per_million_output=0.40,
+        typical_latency_ms=180,
         capabilities=frozenset({
             ModelCapability.REASONING,
             ModelCapability.CODE,
@@ -28,18 +28,16 @@ GROQ_MODELS: dict[str, ModelSpec] = {
             ModelCapability.FAST,
         }),
     ),
-    "llama-3.1-8b-instant": ModelSpec(
-        model_id="llama-3.1-8b-instant",
+    "whisper-large-v3-turbo": ModelSpec(
+        model_id="whisper-large-v3-turbo",
         provider="groq",
-        display_name="Groq Llama 3.1 8B Instant",
-        context_window=128_000,
-        cost_per_million_input=0.05,
-        cost_per_million_output=0.08,
-        typical_latency_ms=120,
+        display_name="Groq Whisper Large v3 Turbo",
+        context_window=8192,
+        cost_per_million_input=0.04,
+        cost_per_million_output=0.04,
+        typical_latency_ms=100,
         capabilities=frozenset({
             ModelCapability.FAST,
-            ModelCapability.STREAMING,
-            ModelCapability.FUNCTION_CALLING,
         }),
     ),
 }

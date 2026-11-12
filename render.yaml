@@ -39,6 +39,14 @@ services:
       - key: ADA_ANTHROPIC_API_KEY
         sync: false
 
+      # --- Observability & Agentic Evals (LangSmith / Langfuse) ---
+      - key: LANGCHAIN_TRACING_V2
+        value: "true"
+      - key: LANGCHAIN_API_KEY
+        sync: false
+      - key: LANGCHAIN_PROJECT
+        value: "ada-production"
+
       # --- App ---
       - key: ADA_ENVIRONMENT
         value: production

@@ -34,8 +34,8 @@ class TestModelGatewayRouting:
         gw = ModelGateway(settings=mock_settings)
         models = gw.registered_models
         # Should include gemini, groq, openrouter, and ollama models
-        assert "gemini-2.0-flash" in models
-        assert "llama-3.1-8b-instant" in models
+        assert "gemini-3.8-flash" in models
+        assert "qwen/qwen3.8-27b" in models
         assert "anthropic/claude-3.7-sonnet" in models
         assert "qwen2.5:7b" in models
 
@@ -43,15 +43,15 @@ class TestModelGatewayRouting:
         gw = ModelGateway(settings=mock_settings)
         candidates = gw.route_candidates(TaskType.CLASSIFICATION)
         assert len(candidates) > 0
-        # Fast groq model should be early in the candidate list
+        # Fast model should be early in the candidate list
         model_ids = [c.model_id for c in candidates]
-        assert "llama-3.1-8b-instant" in model_ids
+        assert "qwen/qwen3.8-27b" in model_ids or "gemini-3.8-flash" in model_ids
 
     def test_route_candidates_for_planning(self, mock_settings: Settings):
         gw = ModelGateway(settings=mock_settings)
         candidates = gw.route_candidates(TaskType.PLANNING)
         model_ids = [c.model_id for c in candidates]
-        assert "gemini-2.5-pro" in model_ids or "anthropic/claude-3.7-sonnet" in model_ids
+        assert "gemini-3.8-flash" in model_ids or "anthropic/claude-3.7-sonnet" in model_ids
 
     def test_route_candidates_requires_vision_filters_correctly(self, mock_settings: Settings):
         gw = ModelGateway(settings=mock_settings)

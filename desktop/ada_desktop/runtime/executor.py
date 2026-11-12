@@ -77,6 +77,49 @@ class LocalExecutor:
         elif tool_name == "launch_app":
             return self._launch_app(tool_args.get("app_name", ""))
 
+        elif tool_name == "mouse_click":
+            from ada_desktop.runtime.computer_use import ComputerUse
+            ComputerUse.click_mouse(
+                x=tool_args.get("x"),
+                y=tool_args.get("y"),
+                button=tool_args.get("button", "left"),
+                double=tool_args.get("double", False),
+            )
+            return ExecutionResult(success=True, output="Mouse clicked successfully")
+
+        elif tool_name == "mouse_move":
+            from ada_desktop.runtime.computer_use import ComputerUse
+            ComputerUse.move_mouse(int(tool_args.get("x", 0)), int(tool_args.get("y", 0)))
+            return ExecutionResult(success=True, output=f"Mouse moved to ({tool_args.get('x')}, {tool_args.get('y')})")
+
+        elif tool_name == "mouse_scroll":
+            from ada_desktop.runtime.computer_use import ComputerUse
+            ComputerUse.scroll_mouse(int(tool_args.get("clicks", 1)))
+            return ExecutionResult(success=True, output=f"Scrolled {tool_args.get('clicks')} notches")
+
+        elif tool_name == "keyboard_type":
+            from ada_desktop.runtime.computer_use import ComputerUse
+            ComputerUse.type_text(tool_args.get("text", ""))
+            return ExecutionResult(success=True, output=f"Typed {len(tool_args.get('text', ''))} characters")
+
+        elif tool_name == "focus_window":
+            from ada_desktop.runtime.computer_use import ComputerUse
+            ok = ComputerUse.focus_window(tool_args.get("title", ""))
+            return ExecutionResult(success=ok, output="Window focused" if ok else "Window not found")
+
+        elif tool_name == "read_screen":
+            from ada_desktop.screen.capture import ScreenCapture
+            cap = ScreenCapture.capture_display()
+            return ExecutionResult(
+                success=True,
+                output={
+                    "width": cap.width,
+                    "height": cap.height,
+                    "bytes_length": len(cap.image_bytes),
+                    "format": cap.format,
+                },
+            )
+
         else:
             return ExecutionResult(
                 success=False,

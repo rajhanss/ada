@@ -66,9 +66,14 @@ _TOOL_RISK: dict[str, tuple[AutonomyMode, RiskLevel]] = {
     "browser_fill_form":    (AutonomyMode.BOUNDED, RiskLevel.HIGH),
     "browser_submit":       (AutonomyMode.BOUNDED, RiskLevel.HIGH),
 
-    # Application control
+    # Application control & Computer Use
     "launch_app":           (AutonomyMode.BOUNDED, RiskLevel.MEDIUM),
     "close_app":            (AutonomyMode.BOUNDED, RiskLevel.MEDIUM),
+    "mouse_click":          (AutonomyMode.BOUNDED, RiskLevel.MEDIUM),
+    "mouse_move":           (AutonomyMode.SUPERVISED, RiskLevel.LOW),
+    "mouse_scroll":         (AutonomyMode.SUPERVISED, RiskLevel.LOW),
+    "keyboard_type":        (AutonomyMode.BOUNDED, RiskLevel.MEDIUM),
+    "focus_window":         (AutonomyMode.SUPERVISED, RiskLevel.LOW),
 
     # Destructive — always require approval regardless of mode
     "delete_file":          (AutonomyMode.BOUNDED, RiskLevel.HIGH),

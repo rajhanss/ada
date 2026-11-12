@@ -20,6 +20,7 @@ class OrbState(str, Enum):
     LISTENING = "listening"
     THINKING = "thinking"
     SPEAKING = "speaking"
+    SCANNING = "scanning"
     ERROR = "error"
 
 
@@ -110,10 +111,38 @@ class FloatingOrb(QWidget):
         inner_gradient = QRadialGradient(center_x - 4, center_y - 4, radius)
         inner_gradient.setColorAt(0.0, core_color.lighter(130))
         inner_gradient.setColorAt(0.8, core_color)
-        inner_gradient.setColorAt(1.0, core_color.darker(120))
+        inner_gradient.setColorAt(1.0, core_color.darker(140))
 
         painter.setBrush(QBrush(inner_gradient))
         painter.drawEllipse(QRect(int(center_x - radius), int(center_y - radius), int(radius * 2), int(radius * 2)))
+
+        # Draw Expressive Animated Eyes / Visor
+        if self.state == OrbState.SCANNING:
+            # Scanning Visor Bar
+            visor_w = radius * 1.3
+            visor_h = 6
+            visor_x = center_x - (visor_w / 2.0)
+            visor_y = center_y - 3 + (self._pulse_phase * 6 - 3)
+            painter.setBrush(QBrush(QColor(0, 195, 255)))
+            painter.setPen(Qt.PenStyle.NoPen)
+            painter.drawRoundedRect(QRect(int(visor_x), int(visor_y), int(visor_w), int(visor_h)), 3, 3)
+        else:
+            # Two Expressive Glowing Eyes
+            eye_spacing = 9
+            eye_radius = 3.5
+            eye_y = center_y - 1
+
+            # Dark eye socket
+            painter.setBrush(QBrush(QColor(18, 18, 24)))
+            painter.setPen(Qt.PenStyle.NoPen)
+            painter.drawEllipse(QRect(int(center_x - eye_spacing - eye_radius), int(eye_y - eye_radius), int(eye_radius * 2), int(eye_radius * 2)))
+            painter.drawEllipse(QRect(int(center_x + eye_spacing - eye_radius), int(eye_y - eye_radius), int(eye_radius * 2), int(eye_radius * 2)))
+
+            # Bright white cyber pupils
+            pupil_r = 1.8
+            painter.setBrush(QBrush(QColor(255, 255, 255)))
+            painter.drawEllipse(QRect(int(center_x - eye_spacing - pupil_r), int(eye_y - pupil_r), int(pupil_r * 2), int(pupil_r * 2)))
+            painter.drawEllipse(QRect(int(center_x + eye_spacing - pupil_r), int(eye_y - pupil_r), int(pupil_r * 2), int(pupil_r * 2)))
 
     # Drag and click support
     def mousePressEvent(self, event: QMouseEvent) -> None:  # noqa: N802
