@@ -55,6 +55,14 @@ def create_app() -> FastAPI:
     from ada.api.v1 import router as api_v1_router
     app.include_router(api_v1_router, prefix="/api/v1")
 
+    # Static UI — serve React SaaS landing page & web dashboard
+    from pathlib import Path
+    from fastapi.staticfiles import StaticFiles
+
+    static_dir = Path(__file__).resolve().parent / "static"
+    if static_dir.exists():
+        app.mount("/", StaticFiles(directory=str(static_dir), html=True), name="static")
+
     return app
 
 
