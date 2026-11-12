@@ -16,6 +16,27 @@ logger = structlog.get_logger(__name__)
 router = APIRouter(tags=["websocket"])
 
 
+@router.websocket("/ws")
+async def web_client_websocket(websocket: WebSocket) -> None:
+    """WebSocket endpoint for web dashboard and browser clients."""
+    await websocket.accept()
+    logger.info("Web dashboard WebSocket connected")
+    try:
+        await websocket.send_json({"type": "connected", "payload": {"status": "ok", "message": "Connected to ADA Cloud"}})
+        async for raw in websocket.iter_text():
+            try:
+                msg = json.loads(raw)
+                msg_type = msg.get("type", "ping")
+                if msg_type == "ping":
+                    await websocket.send_json({"type": "pong", "payload": {"timestamp": datetime.now(timezone.utc).isoformat()}})
+                else:
+                    await websocket.send_json({"type": "ack", "payload": {"received": msg_type}})
+            except Exception:
+                pass
+    except WebSocketDisconnect:
+        logger.info("Web dashboard WebSocket disconnected")
+
+
 @router.websocket("/ws/device")
 async def device_websocket(
     websocket: WebSocket,
