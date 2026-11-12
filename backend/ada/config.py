@@ -38,8 +38,10 @@ class Settings(BaseSettings):
 
     # Model Providers (all optional — only configure what you have)
     gemini_api_key: str = Field(default="")
+    google_api_key: str = Field(default="")  # Alias for gemini_api_key
     groq_api_key: str = Field(default="")
     openrouter_api_key: str = Field(default="")
+    anthropic_api_key: str = Field(default="")
     ollama_base_url: str = "http://127.0.0.1:11434"
 
     # Push Notifications

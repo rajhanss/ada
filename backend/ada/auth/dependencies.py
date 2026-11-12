@@ -31,17 +31,14 @@ _bearer = HTTPBearer(auto_error=True)
 
 
 def _decode_jwt(token: str, settings: Settings) -> dict:
-    """Decode and validate a Supabase JWT.
-
-    Supabase JWTs are signed with the JWT secret from the project settings.
-    We validate offline — no round-trip to Supabase per request.
-    """
+    """Decode and validate a Supabase JWT or ADA secret key."""
+    key = settings.secret_key or settings.supabase_anon_key or "dev-secret-key-change-in-production-min-32-chars"
     try:
         payload = jwt.decode(
             token,
-            settings.supabase_anon_key,  # Supabase uses anon key as JWT secret in dev
+            key,
             algorithms=["HS256"],
-            options={"verify_aud": False},  # Supabase JWTs don't always set aud
+            options={"verify_aud": False},
         )
         return payload
     except JWTError as exc:

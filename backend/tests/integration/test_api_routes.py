@@ -80,6 +80,37 @@ class TestConversationsEndpoint:
         resp = client.post("/api/v1/conversations", json={"title": "Test"})
         assert resp.status_code in (401, 403, 422)
 
+    def test_create_and_send_message_authenticated(self, client: TestClient):
+        from jose import jwt
+        from ada.config import get_settings
+        settings = get_settings()
+        key = settings.secret_key or "dev-secret-key-change-in-production-min-32-chars"
+        token = jwt.encode({"sub": "test-user-e2e"}, key, algorithm="HS256")
+        headers = {"Authorization": f"Bearer {token}"}
+
+        # 1. Create conversation
+        conv_resp = client.post(
+            "/api/v1/conversations/",
+            json={"title": "My Assistant Session"},
+            headers=headers,
+        )
+        assert conv_resp.status_code == 201
+        conv_data = conv_resp.json()
+        conv_id = conv_data["id"]
+        assert conv_data["title"] == "My Assistant Session"
+
+        # 2. Send message and get AI response
+        msg_resp = client.post(
+            f"/api/v1/conversations/{conv_id}/messages",
+            json={"content": "Hello ADA! Please introduce yourself."},
+            headers=headers,
+        )
+        assert msg_resp.status_code == 201
+        msg_data = msg_resp.json()
+        assert msg_data["role"] == "assistant"
+        assert len(msg_data["content"]) > 0
+        assert "ADA" in msg_data["content"] or len(msg_data["content"]) > 10
+
 
 # ---------------------------------------------------------------------------
 # Tasks — requires auth
