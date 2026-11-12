@@ -75,7 +75,15 @@ ADA is distributed directly:
 
 ## 4. Deploying ADA Backend to Render.com
 
-ADA includes a pre-configured `render.yaml` Blueprint:
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/rajhanss/ada)
+
+### Option A: 1-Click Instant Deploy
+Click the button above or visit:
+**`https://render.com/deploy?repo=https://github.com/rajhanss/ada`**
+
+Render will automatically inspect `render.yaml`, set up the free Docker web service `ada-backend`, and prompt you to input your API keys.
+
+### Option B: Manual Blueprint Setup
 
 1. **Push your repository to GitHub**:
    ```bash

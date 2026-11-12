@@ -10,7 +10,7 @@ services:
     runtime: docker
     dockerfilePath: ./backend/Dockerfile
     dockerContext: ./backend
-    plan: starter           # upgrade to standard for production
+    plan: free              # Free tier supported (no credit card required)
     region: oregon          # choose region closest to users
     branch: main
     healthCheckPath: /health
@@ -62,12 +62,6 @@ services:
       # --- Deployment metadata ---
       - key: ADA_DEPLOY_REGION
         value: oregon
-
-    scaling:
-      minInstances: 1
-      maxInstances: 3
-      targetMemoryPercent: 80
-      targetCPUPercent: 70
 
 # Optional: add a PostgreSQL database if you want Render-managed Postgres
 # (ADA uses Supabase Postgres by default — this section is commented out)

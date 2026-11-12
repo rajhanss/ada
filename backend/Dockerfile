@@ -43,6 +43,6 @@ EXPOSE 8000
 
 # Health check — Render and k8s will probe /health
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-    CMD python -c "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"
+    CMD python -c "import os, urllib.request; port = os.environ.get('PORT', '8000'); urllib.request.urlopen(f'http://localhost:{port}/health')"
 
-CMD ["uvicorn", "ada.main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "2", "--loop", "uvloop"]
+CMD ["sh", "-c", "uvicorn ada.main:app --host 0.0.0.0 --port ${PORT:-8000} --workers 1"]

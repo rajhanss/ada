@@ -1,5 +1,7 @@
 # ADA — Autonomous Digital Assistant
 
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/rajhanss/ada)
+
 **Tagline:** Your intelligence. Everywhere.  
 **Version:** 0.1.0 — Engineering Stage A (Foundation)
 
