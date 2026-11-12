@@ -1,0 +1,30 @@
+export const ADA_THEME = {
+  colors: {
+    primary: '#E87518',
+    primaryGlow: 'rgba(232, 117, 24, 0.25)',
+    background: '#0B0B0E',
+    surface: '#15151C',
+    surfaceHover: '#1E1E28',
+    border: '#23232E',
+    textMain: '#F3F3F8',
+    textMuted: '#9B9BAF',
+    textDim: '#606073',
+    success: '#10B981',
+    warning: '#F59E0B',
+    danger: '#EF4444',
+    cyan: '#00C3FF',
+  },
+  spacing: {
+    xs: 4,
+    sm: 8,
+    md: 16,
+    lg: 24,
+    xl: 32,
+  },
+  borderRadius: {
+    sm: 6,
+    md: 10,
+    lg: 16,
+    full: 9999,
+  },
+};

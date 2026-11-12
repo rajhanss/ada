@@ -1,0 +1,28 @@
+{
+  "expo": {
+    "name": "ADA",
+    "slug": "ada-mobile",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
+    "splash": {
+      "backgroundColor": "#0B0B0E"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "dev.ada.mobile"
+    },
+    "android": {
+      "package": "dev.ada.mobile",
+      "adaptiveIcon": {
+        "backgroundColor": "#0B0B0E"
+      },
+      "permissions": [
+        "RECORD_AUDIO",
+        "VIBRATE",
+        "INTERNET"
+      ]
+    }
+  }
+}

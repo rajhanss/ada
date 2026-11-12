@@ -1,29 +1,25 @@
-# ADA — Android Companion
+# ADA — Mobile Companion (React Native / Expo)
 
-**Version:** 0.1.0 | **Platform:** Android (minSdk 26 / Android 8.0+)  
-**Stack:** Kotlin + Jetpack Compose + Ktor + Room + WorkManager
+**Version:** 0.1.0 | **Platform:** Android & iOS  
+**Stack:** React Native + TypeScript + Expo + Shared TypeScript Contracts
 
 ---
 
-## 1. Architecture (MVVM + Clean Architecture)
+## 1. Architecture
 
 ```
-UI Layer (Compose screens)
+React Native UI Layer (Screens: Home, Tasks, Approvals, Devices)
         │
         ▼
-ViewModel Layer (Kotlin Coroutines + StateFlow)
+Shared Hooks & State (useAdaWebSocket, AuthState)
         │
         ▼
-Use Case Layer (business logic, permission checks)
+Shared Contracts (types.ts shared across Web & Mobile)
         │
    ┌────┴────┐
    ▼         ▼
-Repository  Repository
-(Remote)    (Local)
-   │         │
-   ▼         ▼
-Ktor HTTP  Room DB
-Client     (SQLite)
+REST Client WebSocket Client
+(Fetch)    (Native WS)
 ```
 
 ---
