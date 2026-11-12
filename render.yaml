@@ -1,8 +1,5 @@
 # Render.com deployment manifest
 # https://render.com/docs/blueprint-spec
-#
-# Deploy: connect your GitHub repo and point Render at this file.
-# Set secret environment variables in the Render dashboard (never commit them).
 
 services:
   - type: web
@@ -17,39 +14,7 @@ services:
     autoDeploy: true
 
     envVars:
-      # --- Supabase ---
-      - key: ADA_SUPABASE_URL
-        sync: false         # set in Render dashboard
-      - key: ADA_SUPABASE_SERVICE_ROLE_KEY
-        sync: false
-      - key: ADA_SUPABASE_ANON_KEY
-        sync: false
-
-      # --- JWT ---
-      - key: ADA_JWT_SECRET
-        generateValue: true  # Render generates a secure random value
-
-      # --- AI Providers (set whichever you use) ---
-      - key: ADA_GOOGLE_API_KEY
-        sync: false
-      - key: ADA_GEMINI_API_KEY
-        sync: false
-      - key: ADA_GROQ_API_KEY
-        sync: false
-      - key: ADA_OPENROUTER_API_KEY
-        sync: false
-      - key: ADA_ANTHROPIC_API_KEY
-        sync: false
-
-      # --- Observability & Agentic Evals (LangSmith / Langfuse) ---
-      - key: LANGCHAIN_TRACING_V2
-        value: "true"
-      - key: LANGCHAIN_API_KEY
-        sync: false
-      - key: LANGCHAIN_PROJECT
-        value: "ada-production"
-
-      # --- App ---
+      # --- App Environment ---
       - key: ADA_ENVIRONMENT
         value: production
       - key: ADA_DEBUG
@@ -57,18 +22,38 @@ services:
       - key: ADA_LOG_LEVEL
         value: "INFO"
 
-      # CORS: comma-separated list of allowed origins
+      # --- JWT Secret ---
+      - key: ADA_JWT_SECRET
+        generateValue: true
+
+      # --- AI Providers (paste your keys in Render Dashboard -> Environment) ---
+      - key: ADA_GEMINI_API_KEY
+        value: ""
+      - key: ADA_GOOGLE_API_KEY
+        value: ""
+      - key: ADA_GROQ_API_KEY
+        value: ""
+      - key: ADA_OPENROUTER_API_KEY
+        value: ""
+      - key: ADA_ANTHROPIC_API_KEY
+        value: ""
+
+      # --- Optional Supabase / Storage ---
+      - key: ADA_SUPABASE_URL
+        value: ""
+      - key: ADA_SUPABASE_SERVICE_ROLE_KEY
+        value: ""
+      - key: ADA_SUPABASE_ANON_KEY
+        value: ""
+
+      # --- Observability & Agentic Evals ---
+      - key: LANGCHAIN_TRACING_V2
+        value: "false"
+      - key: LANGCHAIN_API_KEY
+        value: ""
+      - key: LANGCHAIN_PROJECT
+        value: "ada-production"
+
+      # --- CORS ---
       - key: ADA_CORS_ORIGINS
-        value: "https://your-web-dashboard.vercel.app"
-
-      # --- Deployment metadata ---
-      - key: ADA_DEPLOY_REGION
-        value: oregon
-
-# Optional: add a PostgreSQL database if you want Render-managed Postgres
-# (ADA uses Supabase Postgres by default — this section is commented out)
-# databases:
-#   - name: ada-db
-#     databaseName: ada
-#     user: ada
-#     plan: starter
+        value: "*"

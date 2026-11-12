@@ -1,48 +1,37 @@
 # ADA Backend — Production Dockerfile
-# Multi-stage build for minimal final image size
-
-# --- Build stage ---
-FROM python:3.12-slim AS builder
-
-WORKDIR /build
-
-# Copy uv from official image
-COPY --from=ghcr.io/astral-sh/uv:latest /uv /bin/uv
-
-# Copy dependency manifest and lock file
-COPY pyproject.toml uv.lock* ./
-
-# Install production dependencies into /build/.venv
-RUN uv sync --frozen --no-dev --no-install-project
-
-# --- Runtime stage ---
-FROM python:3.12-slim AS runtime
-
-# Security: non-root user
-RUN useradd --create-home --uid 1001 appuser
+FROM python:3.12-slim
 
 WORKDIR /app
 
-# Copy venv from builder
-COPY --from=builder /build/.venv /app/.venv
+# Install curl for healthcheck probe
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
 
-# Copy application code
+# Set environment variables
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONPATH=/app \
+    PORT=8000
+
+# Copy manifests and source code
+COPY pyproject.toml ./
 COPY ada/ ./ada/
 
-# Owned by appuser
-RUN chown -R appuser:appuser /app
+# Upgrade pip and install package with all production dependencies
+RUN pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir .
 
+# Security: non-root user
+RUN useradd --create-home --uid 1001 appuser && \
+    chown -R appuser:appuser /app
 USER appuser
-
-# Activate venv by prepending to PATH
-ENV PATH="/app/.venv/bin:$PATH"
-ENV PYTHONUNBUFFERED=1
-ENV PYTHONDONTWRITEBYTECODE=1
 
 EXPOSE 8000
 
-# Health check — Render and k8s will probe /health
+# Healthcheck
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-    CMD python -c "import os, urllib.request; port = os.environ.get('PORT', '8000'); urllib.request.urlopen(f'http://localhost:{port}/health')"
+    CMD curl -f http://localhost:${PORT:-8000}/health || exit 1
 
+# Start Uvicorn bound to Render's dynamic $PORT
 CMD ["sh", "-c", "uvicorn ada.main:app --host 0.0.0.0 --port ${PORT:-8000} --workers 1"]
