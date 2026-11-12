@@ -1,0 +1,70 @@
+# Render.com deployment manifest
+# https://render.com/docs/blueprint-spec
+#
+# Deploy: connect your GitHub repo and point Render at this file.
+# Set secret environment variables in the Render dashboard (never commit them).
+
+services:
+  - type: web
+    name: ada-backend
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    plan: starter           # upgrade to standard for production
+    region: oregon          # choose region closest to users
+    branch: main
+    healthCheckPath: /health
+    autoDeploy: true
+
+    envVars:
+      # --- Supabase ---
+      - key: ADA_SUPABASE_URL
+        sync: false         # set in Render dashboard
+      - key: ADA_SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: ADA_SUPABASE_ANON_KEY
+        sync: false
+
+      # --- JWT ---
+      - key: ADA_JWT_SECRET
+        generateValue: true  # Render generates a secure random value
+
+      # --- AI Providers (set whichever you use) ---
+      - key: ADA_GOOGLE_API_KEY
+        sync: false
+      - key: ADA_GROQ_API_KEY
+        sync: false
+      - key: ADA_OPENROUTER_API_KEY
+        sync: false
+      - key: ADA_ANTHROPIC_API_KEY
+        sync: false
+
+      # --- App ---
+      - key: ADA_ENVIRONMENT
+        value: production
+      - key: ADA_DEBUG
+        value: "false"
+      - key: ADA_LOG_LEVEL
+        value: "INFO"
+
+      # CORS: comma-separated list of allowed origins
+      - key: ADA_CORS_ORIGINS
+        value: "https://your-web-dashboard.vercel.app"
+
+      # --- Deployment metadata ---
+      - key: ADA_DEPLOY_REGION
+        value: oregon
+
+    scaling:
+      minInstances: 1
+      maxInstances: 3
+      targetMemoryPercent: 80
+      targetCPUPercent: 70
+
+# Optional: add a PostgreSQL database if you want Render-managed Postgres
+# (ADA uses Supabase Postgres by default — this section is commented out)
+# databases:
+#   - name: ada-db
+#     databaseName: ada
+#     user: ada
+#     plan: starter

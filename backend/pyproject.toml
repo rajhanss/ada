@@ -1,0 +1,61 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ada-backend"
+version = "0.1.0"
+description = "ADA — Autonomous Digital Assistant — Cloud Backend"
+requires-python = ">=3.12"
+dependencies = [
+  "fastapi>=0.115",
+  "uvicorn[standard]>=0.32",
+  "pydantic>=2.9",
+  "pydantic-settings>=2.6",
+  "supabase>=2.9",
+  "python-jose[cryptography]>=3.3",
+  "passlib[bcrypt]>=1.7",
+  "httpx>=0.27",
+  "websockets>=13",
+  "langgraph>=0.2",
+  "langchain-core>=0.3",
+  "langchain-google-genai>=2.0",
+  "langchain-groq>=0.2",
+  "openai>=1.50",         # OpenRouter uses OpenAI-compatible API
+  "structlog>=24.4",
+  "python-multipart>=0.0.9",
+  "pgvector>=0.3",
+  "asyncpg>=0.30",
+  "sqlalchemy[asyncio]>=2.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.3",
+  "pytest-asyncio>=0.24",
+  "pytest-httpx>=0.32",
+  "mypy>=1.11",
+  "ruff>=0.7",
+  "types-python-jose",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["ada*"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+ignore_missing_imports = true
