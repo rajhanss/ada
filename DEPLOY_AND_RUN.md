@@ -73,17 +73,22 @@ ADA is distributed directly:
 
 ---
 
-## 4. Deploying ADA Backend to Render.com
+## 4. Live Render Cloud Deployment
 
-[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/rajhanss/ada)
+ADA Backend is **LIVE IN PRODUCTION** on Render:
 
-### Option A: 1-Click Instant Deploy
-Click the button above or visit:
-**`https://render.com/deploy?repo=https://github.com/rajhanss/ada`**
+- **Live URL**: `https://ada-backend-hpbg.onrender.com`
+- **Health Check**: `https://ada-backend-hpbg.onrender.com/health` (`{"status":"healthy","version":"0.1.0","environment":"production"}`)
+- **API Health Check**: `https://ada-backend-hpbg.onrender.com/api/v1/health`
+- **Dashboard**: [Render Service Dashboard](https://dashboard.render.com/web/srv-dbqqthdbedkc73efic5g)
 
-Render will automatically inspect `render.yaml`, set up the free Docker web service `ada-backend`, and prompt you to input your API keys.
+### Connecting Clients to Render Cloud:
+- **Desktop Companion**: Set `ADA_DESKTOP_BACKEND_URL=https://ada-backend-hpbg.onrender.com` in `desktop/.env`.
+- **Web Dashboard**: Set `VITE_BACKEND_URL=https://ada-backend-hpbg.onrender.com` in `web/.env`.
 
-### Option B: Manual Blueprint Setup
+---
+
+## 5. Render Blueprint Setup (For Re-deploying)
 
 1. **Push your repository to GitHub**:
    ```bash

@@ -1,8 +1,10 @@
 # ADA — Autonomous Digital Assistant
 
 [![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/rajhanss/ada)
+[![Render Status](https://img.shields.io/badge/Render-Live%20Online-2ea44f?logo=render&logoColor=white)](https://ada-backend-hpbg.onrender.com/health)
 
 **Tagline:** Your intelligence. Everywhere.  
+**Live Cloud Backend:** [https://ada-backend-hpbg.onrender.com](https://ada-backend-hpbg.onrender.com)  
 **Version:** 0.1.0 — Engineering Stage A (Foundation)
 
 ---
